@@ -48,6 +48,10 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             pnl.setSize(new Dimension(200,300));
             pnlListMovie.add(pnl);
         }
+        pnlListDateSchedule.setLayout(new GridLayout(0,1,0,10));
+        for(int i=0;i<3;i++){
+            pnlListDateSchedule.add(new PanelListScheduleMovie());
+        }
         
         
         //combobox for schedule movie
@@ -116,6 +120,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         pnlListMoviePlaying = new javax.swing.JPanel();
         lblMoviePlaying = new javax.swing.JLabel();
         pnlListMovie = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         pnlListScheduleMovie = new javax.swing.JPanel();
         lblScheduleMovie = new javax.swing.JLabel();
         lblArea = new javax.swing.JLabel();
@@ -139,6 +144,9 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         lblDate2 = new javax.swing.JLabel();
         pnlDate3 = new javax.swing.JPanel();
         lblDate3 = new javax.swing.JLabel();
+        pnlListDateSchedule = new javax.swing.JPanel();
+
+        setBackground(new java.awt.Color(32, 32, 32));
 
         pnlMain.setBackground(new java.awt.Color(32, 32, 32));
 
@@ -160,8 +168,16 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         );
         pnlListMovieLayout.setVerticalGroup(
             pnlListMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 443, Short.MAX_VALUE)
+            .addGap(0, 428, Short.MAX_VALUE)
         );
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlListMoviePlayingLayout = new javax.swing.GroupLayout(pnlListMoviePlaying);
         pnlListMoviePlaying.setLayout(pnlListMoviePlayingLayout);
@@ -169,18 +185,22 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             pnlListMoviePlayingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlListMoviePlayingLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlListMoviePlayingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlListMoviePlayingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(pnlListMovie, javax.swing.GroupLayout.PREFERRED_SIZE, 1370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMoviePlaying))
+                    .addGroup(pnlListMoviePlayingLayout.createSequentialGroup()
+                        .addComponent(lblMoviePlaying)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         pnlListMoviePlayingLayout.setVerticalGroup(
             pnlListMoviePlayingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlListMoviePlayingLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblMoviePlaying)
+                .addGroup(pnlListMoviePlayingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblMoviePlaying, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlListMovie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlListMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
         );
 
         pnlListScheduleMovie.setBackground(new java.awt.Color(32, 32, 32));
@@ -207,7 +227,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         );
         pnlCbxAreaLayout.setVerticalGroup(
             pnlCbxAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 61, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         pnlCbxTheater.setBackground(new java.awt.Color(32, 32, 32));
@@ -222,7 +242,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         );
         pnlCbxTheaterLayout.setVerticalGroup(
             pnlCbxTheaterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 61, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         lblTheater.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -245,7 +265,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         );
         pnlCbxCinemaLayout.setVerticalGroup(
             pnlCbxCinemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 63, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         pnlListDate.setBackground(new java.awt.Color(32, 32, 32));
@@ -497,6 +517,19 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
                 .addGap(0, 22, Short.MAX_VALUE))
         );
 
+        pnlListDateSchedule.setBackground(new java.awt.Color(32, 32, 32));
+
+        javax.swing.GroupLayout pnlListDateScheduleLayout = new javax.swing.GroupLayout(pnlListDateSchedule);
+        pnlListDateSchedule.setLayout(pnlListDateScheduleLayout);
+        pnlListDateScheduleLayout.setHorizontalGroup(
+            pnlListDateScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlListDateScheduleLayout.setVerticalGroup(
+            pnlListDateScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 348, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout pnlListScheduleMovieLayout = new javax.swing.GroupLayout(pnlListScheduleMovie);
         pnlListScheduleMovie.setLayout(pnlListScheduleMovieLayout);
         pnlListScheduleMovieLayout.setHorizontalGroup(
@@ -504,6 +537,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
                         .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblScheduleMovie)
@@ -528,22 +562,24 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblScheduleMovie)
+                .addComponent(lblScheduleMovie, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCbxArea, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                    .addComponent(pnlCbxArea, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(lblArea, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCbxTheater, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                    .addComponent(pnlCbxTheater, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(lblTheater, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCbxCinema, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                    .addComponent(pnlCbxCinema, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(lblCinema, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlListDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnlMainLayout = new javax.swing.GroupLayout(pnlMain);
@@ -561,8 +597,8 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             .addGroup(pnlMainLayout.createSequentialGroup()
                 .addComponent(pnlListMoviePlaying, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(pnlListScheduleMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-                .addGap(0, 165, Short.MAX_VALUE))
+                .addComponent(pnlListScheduleMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -578,12 +614,12 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1086, Short.MAX_VALUE)
+            .addGap(0, 1182, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 18, Short.MAX_VALUE)
                     .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 18, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -622,8 +658,13 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         setScreen(pnlDate3, lblDate3);
     }//GEN-LAST:event_lblDate3MouseClicked
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+       System.exit(0);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblArea;
     private javax.swing.JLabel lblCinema;
     private javax.swing.JLabel lblDate1;
@@ -647,6 +688,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel pnlDate6;
     private javax.swing.JPanel pnlDate7;
     private javax.swing.JPanel pnlListDate;
+    private javax.swing.JPanel pnlListDateSchedule;
     private javax.swing.JPanel pnlListMovie;
     private javax.swing.JPanel pnlListMoviePlaying;
     private javax.swing.JPanel pnlListScheduleMovie;

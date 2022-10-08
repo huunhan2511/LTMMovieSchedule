@@ -8,6 +8,7 @@ package ltmmovieschedule;
 import GUI.Custom.MyScrollBarUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -33,8 +34,11 @@ public class MovieSchedule extends javax.swing.JFrame {
         scrollPaneMain.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPaneMain.getViewport().setBackground(new Color(32,32,32));
         scrollPaneMain.getVerticalScrollBar().setUI(new MyScrollBarUI());
+        scrollPaneMain.getVerticalScrollBar().setPreferredSize(new Dimension(13,0));
+        scrollPaneMain.getVerticalScrollBar().setBackground(Color.LIGHT_GRAY);
         pnlRoot.setLayout(new BorderLayout());
         pnlRoot.add(new GUI.MovieScheduleJPanel());
+       
     }
     
     /**
@@ -52,6 +56,7 @@ public class MovieSchedule extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(32, 32, 32));
         setMinimumSize(new java.awt.Dimension(1400, 900));
+        setUndecorated(true);
         setResizable(false);
 
         scrollPaneMain.setPreferredSize(new java.awt.Dimension(1400, 900));
