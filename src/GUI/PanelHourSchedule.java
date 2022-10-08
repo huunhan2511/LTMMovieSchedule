@@ -41,6 +41,7 @@ public class PanelHourSchedule extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(120, 50));
         setPreferredSize(new java.awt.Dimension(120, 50));
 
+        lblHourSchedule.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         lblHourSchedule.setForeground(new java.awt.Color(255, 255, 255));
         lblHourSchedule.setText("10:30 - 12:00");
 

@@ -57,12 +57,12 @@ public class PanelMovie extends javax.swing.JPanel {
         lblImage.setMinimumSize(new java.awt.Dimension(170, 190));
         lblImage.setPreferredSize(new java.awt.Dimension(170, 190));
 
-        lblNameMovie.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        lblNameMovie.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         lblNameMovie.setForeground(new java.awt.Color(255, 255, 255));
         lblNameMovie.setText("jLabel3");
 
-        lblDescription.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
-        lblDescription.setForeground(new java.awt.Color(255, 255, 255));
+        lblDescription.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        lblDescription.setForeground(new java.awt.Color(182, 182, 182));
         lblDescription.setText("jLabel3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -80,12 +80,13 @@ public class PanelMovie extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(lblNameMovie)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNameMovie, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(lblDescription)
-                .addContainerGap())
+                .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
 
