@@ -6,6 +6,7 @@
 package ltmmovieschedule;
 
 import GUI.Custom.MyScrollBarUI;
+import controller.changeScreenController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
@@ -27,6 +29,7 @@ public class MovieSchedule extends javax.swing.JFrame {
     
     private int col = 6;
     private ArrayList<String> dayWeek;
+    public static changeScreenController  controller;
     public MovieSchedule() throws IOException {
         
         initComponents();
@@ -38,7 +41,8 @@ public class MovieSchedule extends javax.swing.JFrame {
         scrollPaneMain.getVerticalScrollBar().setBackground(Color.LIGHT_GRAY);
         pnlRoot.setLayout(new BorderLayout());
         pnlRoot.add(new GUI.MovieScheduleJPanel());
-       
+        controller = new changeScreenController(pnlRoot); 
+        
     }
     
     /**

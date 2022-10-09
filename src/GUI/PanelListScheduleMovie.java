@@ -25,7 +25,7 @@ public class PanelListScheduleMovie extends javax.swing.JPanel {
         initComponents();
         pnlMovie.setLayout(new BorderLayout());
         JPanel pnl = new JPanel();
-        pnl.add(new GUI.PanelMovie());
+        pnl.add(new GUI.PanelMovie("1"));
         pnl.setBackground(Color.decode("#202020"));
         pnl.setPreferredSize(new Dimension(200,300));
         pnlMovie.add(pnl);

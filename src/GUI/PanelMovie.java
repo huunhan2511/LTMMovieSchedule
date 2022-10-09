@@ -5,13 +5,19 @@
  */
 package GUI;
 
+import controller.changeScreenController;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import ltmmovieschedule.MovieSchedule;
 
 /**
  *
@@ -22,9 +28,11 @@ public class PanelMovie extends javax.swing.JPanel {
     /**
      * Creates new form PanelMovie
      */
-    public PanelMovie() throws IOException {
+    private String film;
+    public PanelMovie(String str) throws IOException {
         initComponents();
         setData();
+        film=str;
     }
     public void setData() throws MalformedURLException, IOException{
         URL url = new URL("https://traffic-edge19.cdn.vncdn.io/cinema/img/81593614129596321-bxp5IUY05jLGeZ5bW85W2NF6Rgi.jpg");
@@ -33,6 +41,7 @@ public class PanelMovie extends javax.swing.JPanel {
         Image fixImage = image.getImage().getScaledInstance(200, 225, java.awt.Image.SCALE_SMOOTH);
         image = new ImageIcon(fixImage);
         lblImage.setIcon(image);
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,6 +61,11 @@ public class PanelMovie extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(200, 300));
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(200, 300));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         lblImage.setMaximumSize(new java.awt.Dimension(170, 190));
         lblImage.setMinimumSize(new java.awt.Dimension(170, 190));
@@ -89,6 +103,14 @@ public class PanelMovie extends javax.swing.JPanel {
                 .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        try {
+            MovieSchedule.controller.setScreenDetailFilm(film);
+        } catch (IOException ex) {
+            Logger.getLogger(PanelMovie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

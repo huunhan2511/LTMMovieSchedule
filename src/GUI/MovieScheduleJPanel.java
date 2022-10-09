@@ -8,9 +8,16 @@ package GUI;
 import GUI.Custom.SweetComboBox;
 import Models.Cineplex;
 import Models.Citi;
+import controller.changeScreenController;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,10 +25,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import ltmmovieschedule.MovieSchedule;
 
 /**
  *
@@ -38,14 +47,16 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
     public MovieScheduleJPanel() throws IOException {
         initComponents();
         pnlListMovie.setLayout(new GridLayout(0,col,10,5));
-        
+        lblExit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+             
         // render list movie playing
         for(int i=0;i<10;i++){
             JPanel pnl = new JPanel();
-            pnl.add(new GUI.PanelMovie());
+            pnl.add(new GUI.PanelMovie(Integer.toString(i)));
             pnl.setBackground(Color.getColor("#202020"));
             pnl.setMinimumSize(new Dimension(200,300));
             pnl.setSize(new Dimension(200,300));
+            pnl.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             pnlListMovie.add(pnl);
         }
         pnlListDateSchedule.setLayout(new GridLayout(0,1,0,10));
@@ -120,7 +131,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         pnlListMoviePlaying = new javax.swing.JPanel();
         lblMoviePlaying = new javax.swing.JLabel();
         pnlListMovie = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblExit = new javax.swing.JLabel();
         pnlListScheduleMovie = new javax.swing.JPanel();
         lblScheduleMovie = new javax.swing.JLabel();
         lblArea = new javax.swing.JLabel();
@@ -171,11 +182,11 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             .addGap(0, 428, Short.MAX_VALUE)
         );
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblExit.setForeground(new java.awt.Color(255, 255, 255));
+        lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                lblExitMouseClicked(evt);
             }
         });
 
@@ -190,7 +201,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
                     .addGroup(pnlListMoviePlayingLayout.createSequentialGroup()
                         .addComponent(lblMoviePlaying)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         pnlListMoviePlayingLayout.setVerticalGroup(
@@ -198,7 +209,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             .addGroup(pnlListMoviePlayingLayout.createSequentialGroup()
                 .addGroup(pnlListMoviePlayingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMoviePlaying, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlListMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
         );
@@ -658,13 +669,12 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         setScreen(pnlDate3, lblDate3);
     }//GEN-LAST:event_lblDate3MouseClicked
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
        System.exit(0);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_lblExitMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblArea;
     private javax.swing.JLabel lblCinema;
     private javax.swing.JLabel lblDate1;
@@ -674,6 +684,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblDate5;
     private javax.swing.JLabel lblDate6;
     private javax.swing.JLabel lblDate7;
+    private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblMoviePlaying;
     private javax.swing.JLabel lblScheduleMovie;
     private javax.swing.JLabel lblTheater;
