@@ -95,6 +95,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         for(int i=0;i<dayWeek.size();i++){
             labels[i].setText(dayWeek.get(i));
             labels[i].setHorizontalAlignment(SwingConstants.CENTER);
+            labels[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             panels[i].setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff"),1));
         }
         setScreen(pnlDate1, lblDate1);
