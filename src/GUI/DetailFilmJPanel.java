@@ -5,10 +5,25 @@
  */
 package GUI;
 
+import GUI.Custom.SweetComboBox;
+import Models.Cineplex;
+import Models.Citi;
+import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.GridLayout;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import ltmmovieschedule.MovieSchedule;
 
 /**
@@ -19,12 +34,70 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form DetailFilmJPanel
+     * @param pnlItem
+     * @param lblItem
      */
-    public DetailFilmJPanel(String str) {
+    private ArrayList<String> dayWeek;
+    
+    public void setScreen(JPanel pnlItem,JLabel lblItem){
+        lblItem.setForeground(Color.decode("#202020"));
+        pnlItem.setBackground(Color.decode("#ffffff"));
+    }
+    public void setDefault(){
+        JLabel[] labels = {lblDate1,lblDate2,lblDate3,lblDate4,lblDate5,lblDate6,lblDate7};
+        JPanel[] panels = {pnlDate1,pnlDate2,pnlDate3,pnlDate4,pnlDate5,pnlDate6,pnlDate7};
+        for(int i=0;i<labels.length;i++){
+            labels[i].setForeground(Color.decode("#ffffff"));
+            panels[i].setBackground(Color.decode("#202020"));
+        }
+    }
+    
+    public DetailFilmJPanel(String str) throws IOException {
         initComponents();
         lblFilmName.setText(str);
         lblExit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblBack.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        pnlListDateSchedule.setLayout(new GridLayout(0,1,0,10));
+        for(int i=0;i<1;i++){
+            pnlListDateSchedule.add(new PanelListScheduleMovie());
+        }
+        
+        //combobox for schedule movie
+        List<Object> area = new ArrayList<Object>();
+        area.add(new Citi("1", "TPHCM"));
+        area.add(new Citi("2", "Hà Nội"));
+        
+        SweetComboBox cbxArea = new SweetComboBox("#202020","#FFFFFF",0,0,1175,30,area);   
+        pnlCbxArea.add(cbxArea);
+        
+        List<Object> theater = new ArrayList<Object>();
+        theater.add(new Cineplex("1", "CGV"));
+        theater.add(new Cineplex("2", "Lotte"));
+        SweetComboBox cbxTheater = new SweetComboBox("#202020","#FFFFFF",0,0,1175,30,theater); 
+        pnlCbxTheater.add(cbxTheater);
+        
+        dayWeek = new ArrayList<String>();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM");
+        Date date = new Date();
+        String today = dateFormat.format(date);
+        dayWeek.add(today);
+        Calendar cal = Calendar.getInstance();
+        
+        for(int i=1;i<7;i++){
+            cal.add(Calendar.DATE, 1);
+            Date todate = cal.getTime();  
+            dayWeek.add(dateFormat.format(todate));
+        }
+        
+        JLabel[] labels = {lblDate1,lblDate2,lblDate3,lblDate4,lblDate5,lblDate6,lblDate7};
+        JPanel[] panels = {pnlDate1,pnlDate2,pnlDate3,pnlDate4,pnlDate5,pnlDate6,pnlDate7};
+        for(int i=0;i<dayWeek.size();i++){
+            labels[i].setText(dayWeek.get(i));
+            labels[i].setHorizontalAlignment(SwingConstants.CENTER);
+            panels[i].setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff"),1));
+        }
+        setScreen(pnlDate1, lblDate1);
     }
 
     /**
@@ -37,24 +110,52 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlGlobal = new javax.swing.JPanel();
-        imgBackground = new javax.swing.JLabel();
-        lblFilmCategorys = new javax.swing.JLabel();
-        lblFilmName = new javax.swing.JLabel();
+        pnlMovie = new javax.swing.JPanel();
+        lblExit = new javax.swing.JLabel();
+        lblBack = new javax.swing.JLabel();
+        pnlFilmInfomations = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaFilmContent = new javax.swing.JTextArea();
-        lblIMDBText = new javax.swing.JLabel();
+        lblFilmName = new javax.swing.JLabel();
+        lblFilmCategorys = new javax.swing.JLabel();
+        pnlFilmScores = new javax.swing.JPanel();
         lblIMDBValue = new javax.swing.JLabel();
         lblRottenTomatoesText = new javax.swing.JLabel();
         lblRottenTomatoesValue = new javax.swing.JLabel();
         lblMetacriticText = new javax.swing.JLabel();
         lblMetacriticValue = new javax.swing.JLabel();
+        lblIMDBText = new javax.swing.JLabel();
+        pnlListScheduleMovie = new javax.swing.JPanel();
+        lblScheduleMovie = new javax.swing.JLabel();
+        lblArea = new javax.swing.JLabel();
+        pnlCbxArea = new javax.swing.JPanel();
+        pnlCbxTheater = new javax.swing.JPanel();
+        lblTheater = new javax.swing.JLabel();
+        lblCinema = new javax.swing.JLabel();
+        pnlCbxCinema = new javax.swing.JPanel();
+        pnlListDate = new javax.swing.JPanel();
+        pnlDate1 = new javax.swing.JPanel();
+        lblDate1 = new javax.swing.JLabel();
+        pnlDate4 = new javax.swing.JPanel();
+        lblDate4 = new javax.swing.JLabel();
+        pnlDate5 = new javax.swing.JPanel();
+        lblDate5 = new javax.swing.JLabel();
+        pnlDate6 = new javax.swing.JPanel();
+        lblDate6 = new javax.swing.JLabel();
+        pnlDate7 = new javax.swing.JPanel();
+        lblDate7 = new javax.swing.JLabel();
+        pnlDate2 = new javax.swing.JPanel();
+        lblDate2 = new javax.swing.JLabel();
+        pnlDate3 = new javax.swing.JPanel();
+        lblDate3 = new javax.swing.JLabel();
+        pnlListDateSchedule = new javax.swing.JPanel();
+        pnlFillmActors = new javax.swing.JPanel();
         lblFilmActors = new javax.swing.JLabel();
         lblActorsName = new javax.swing.JLabel();
+        pnlFilmReview = new javax.swing.JPanel();
         lblReview = new javax.swing.JLabel();
         lblReviewTitle = new javax.swing.JLabel();
         lblReviewLink = new javax.swing.JLabel();
-        lblExit = new javax.swing.JLabel();
-        lblBack = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(32, 32, 32));
 
@@ -62,13 +163,36 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         pnlGlobal.setMaximumSize(new java.awt.Dimension(1400, 1000));
         pnlGlobal.setPreferredSize(new java.awt.Dimension(1400, 1000));
 
-        lblFilmCategorys.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        lblFilmCategorys.setForeground(new java.awt.Color(182, 182, 182));
-        lblFilmCategorys.setText("Khoa học viễn tưởng, Phiêu lưu, Hành động, Viễn tưởng");
+        pnlMovie.setBackground(new java.awt.Color(32, 32, 32));
 
-        lblFilmName.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        lblFilmName.setForeground(new java.awt.Color(255, 255, 255));
-        lblFilmName.setText("Avatar");
+        javax.swing.GroupLayout pnlMovieLayout = new javax.swing.GroupLayout(pnlMovie);
+        pnlMovie.setLayout(pnlMovieLayout);
+        pnlMovieLayout.setHorizontalGroup(
+            pnlMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlMovieLayout.setVerticalGroup(
+            pnlMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 455, Short.MAX_VALUE)
+        );
+
+        lblExit.setForeground(new java.awt.Color(255, 255, 255));
+        lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblExitMouseClicked(evt);
+            }
+        });
+
+        lblBack.setForeground(new java.awt.Color(255, 255, 255));
+        lblBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back.png"))); // NOI18N
+        lblBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBackMouseClicked(evt);
+            }
+        });
+
+        pnlFilmInfomations.setBackground(new java.awt.Color(32, 32, 32));
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -98,11 +222,15 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         txtAreaFilmContent.setVerifyInputWhenFocusTarget(false);
         jScrollPane2.setViewportView(txtAreaFilmContent);
 
-        lblIMDBText.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        lblIMDBText.setForeground(new java.awt.Color(255, 255, 255));
-        lblIMDBText.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        lblIMDBText.setText("IMDB : ");
-        lblIMDBText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblFilmName.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        lblFilmName.setForeground(new java.awt.Color(255, 255, 255));
+        lblFilmName.setText("Avatar");
+
+        lblFilmCategorys.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        lblFilmCategorys.setForeground(new java.awt.Color(182, 182, 182));
+        lblFilmCategorys.setText("Khoa học viễn tưởng, Phiêu lưu, Hành động, Viễn tưởng");
+
+        pnlFilmScores.setBackground(new java.awt.Color(32, 32, 32));
 
         lblIMDBValue.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         lblIMDBValue.setForeground(new java.awt.Color(255, 255, 255));
@@ -131,6 +259,457 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         lblMetacriticValue.setText("83");
         lblMetacriticValue.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        lblIMDBText.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        lblIMDBText.setForeground(new java.awt.Color(255, 255, 255));
+        lblIMDBText.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lblIMDBText.setText("IMDB : ");
+        lblIMDBText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout pnlFilmScoresLayout = new javax.swing.GroupLayout(pnlFilmScores);
+        pnlFilmScores.setLayout(pnlFilmScoresLayout);
+        pnlFilmScoresLayout.setHorizontalGroup(
+            pnlFilmScoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFilmScoresLayout.createSequentialGroup()
+                .addContainerGap(83, Short.MAX_VALUE)
+                .addComponent(lblIMDBText, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblIMDBValue, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRottenTomatoesText, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRottenTomatoesValue, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(lblMetacriticText, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblMetacriticValue, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
+        );
+        pnlFilmScoresLayout.setVerticalGroup(
+            pnlFilmScoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFilmScoresLayout.createSequentialGroup()
+                .addGroup(pnlFilmScoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblIMDBValue, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRottenTomatoesText, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRottenTomatoesValue, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMetacriticText, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMetacriticValue, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblIMDBText, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnlFilmInfomationsLayout = new javax.swing.GroupLayout(pnlFilmInfomations);
+        pnlFilmInfomations.setLayout(pnlFilmInfomationsLayout);
+        pnlFilmInfomationsLayout.setHorizontalGroup(
+            pnlFilmInfomationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFilmInfomationsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlFilmInfomationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlFilmInfomationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblFilmCategorys, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
+                        .addComponent(lblFilmName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pnlFilmInfomationsLayout.createSequentialGroup()
+                .addComponent(pnlFilmScores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        pnlFilmInfomationsLayout.setVerticalGroup(
+            pnlFilmInfomationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFilmInfomationsLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(lblFilmName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(lblFilmCategorys, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlFilmScores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pnlListScheduleMovie.setBackground(new java.awt.Color(32, 32, 32));
+        pnlListScheduleMovie.setMaximumSize(new java.awt.Dimension(1380, 32767));
+        pnlListScheduleMovie.setPreferredSize(new java.awt.Dimension(1380, 244));
+
+        lblScheduleMovie.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        lblScheduleMovie.setForeground(new java.awt.Color(255, 255, 255));
+        lblScheduleMovie.setText("LỊCH CHIẾU");
+
+        lblArea.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblArea.setForeground(new java.awt.Color(255, 255, 255));
+        lblArea.setText("Địa điểm : ");
+
+        pnlCbxArea.setBackground(new java.awt.Color(32, 32, 32));
+        pnlCbxArea.setMaximumSize(new java.awt.Dimension(1225, 32767));
+        pnlCbxArea.setPreferredSize(new java.awt.Dimension(1225, 50));
+
+        javax.swing.GroupLayout pnlCbxAreaLayout = new javax.swing.GroupLayout(pnlCbxArea);
+        pnlCbxArea.setLayout(pnlCbxAreaLayout);
+        pnlCbxAreaLayout.setHorizontalGroup(
+            pnlCbxAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlCbxAreaLayout.setVerticalGroup(
+            pnlCbxAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 127, Short.MAX_VALUE)
+        );
+
+        pnlCbxTheater.setBackground(new java.awt.Color(32, 32, 32));
+        pnlCbxTheater.setMaximumSize(new java.awt.Dimension(1225, 32767));
+        pnlCbxTheater.setPreferredSize(new java.awt.Dimension(1225, 50));
+
+        javax.swing.GroupLayout pnlCbxTheaterLayout = new javax.swing.GroupLayout(pnlCbxTheater);
+        pnlCbxTheater.setLayout(pnlCbxTheaterLayout);
+        pnlCbxTheaterLayout.setHorizontalGroup(
+            pnlCbxTheaterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlCbxTheaterLayout.setVerticalGroup(
+            pnlCbxTheaterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 129, Short.MAX_VALUE)
+        );
+
+        lblTheater.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblTheater.setForeground(new java.awt.Color(255, 255, 255));
+        lblTheater.setText("Hệ thống rạp :");
+
+        lblCinema.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblCinema.setForeground(new java.awt.Color(255, 255, 255));
+        lblCinema.setText("Rạp :");
+
+        pnlCbxCinema.setBackground(new java.awt.Color(32, 32, 32));
+        pnlCbxCinema.setMaximumSize(new java.awt.Dimension(1225, 32767));
+        pnlCbxCinema.setPreferredSize(new java.awt.Dimension(1225, 50));
+
+        javax.swing.GroupLayout pnlCbxCinemaLayout = new javax.swing.GroupLayout(pnlCbxCinema);
+        pnlCbxCinema.setLayout(pnlCbxCinemaLayout);
+        pnlCbxCinemaLayout.setHorizontalGroup(
+            pnlCbxCinemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1220, Short.MAX_VALUE)
+        );
+        pnlCbxCinemaLayout.setVerticalGroup(
+            pnlCbxCinemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 129, Short.MAX_VALUE)
+        );
+
+        pnlListDate.setBackground(new java.awt.Color(32, 32, 32));
+
+        pnlDate1.setBackground(new java.awt.Color(32, 32, 32));
+        pnlDate1.setMaximumSize(new java.awt.Dimension(120, 40));
+        pnlDate1.setMinimumSize(new java.awt.Dimension(120, 40));
+
+        lblDate1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblDate1.setForeground(new java.awt.Color(255, 255, 255));
+        lblDate1.setText("jLabel4");
+        lblDate1.setMaximumSize(new java.awt.Dimension(120, 40));
+        lblDate1.setMinimumSize(new java.awt.Dimension(120, 40));
+        lblDate1.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblDate1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDate1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlDate1Layout = new javax.swing.GroupLayout(pnlDate1);
+        pnlDate1.setLayout(pnlDate1Layout);
+        pnlDate1Layout.setHorizontalGroup(
+            pnlDate1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDate1Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblDate1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        pnlDate1Layout.setVerticalGroup(
+            pnlDate1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblDate1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pnlDate4.setBackground(new java.awt.Color(32, 32, 32));
+        pnlDate4.setMaximumSize(new java.awt.Dimension(120, 40));
+        pnlDate4.setMinimumSize(new java.awt.Dimension(120, 40));
+
+        lblDate4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblDate4.setForeground(new java.awt.Color(255, 255, 255));
+        lblDate4.setText("jLabel3");
+        lblDate4.setMaximumSize(new java.awt.Dimension(120, 40));
+        lblDate4.setMinimumSize(new java.awt.Dimension(120, 40));
+        lblDate4.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblDate4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDate4MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlDate4Layout = new javax.swing.GroupLayout(pnlDate4);
+        pnlDate4.setLayout(pnlDate4Layout);
+        pnlDate4Layout.setHorizontalGroup(
+            pnlDate4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDate4Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblDate4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        pnlDate4Layout.setVerticalGroup(
+            pnlDate4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblDate4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pnlDate5.setBackground(new java.awt.Color(32, 32, 32));
+        pnlDate5.setMaximumSize(new java.awt.Dimension(120, 40));
+        pnlDate5.setMinimumSize(new java.awt.Dimension(120, 40));
+
+        lblDate5.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblDate5.setForeground(new java.awt.Color(255, 255, 255));
+        lblDate5.setText("jLabel6");
+        lblDate5.setMaximumSize(new java.awt.Dimension(120, 40));
+        lblDate5.setMinimumSize(new java.awt.Dimension(120, 40));
+        lblDate5.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblDate5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDate5MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlDate5Layout = new javax.swing.GroupLayout(pnlDate5);
+        pnlDate5.setLayout(pnlDate5Layout);
+        pnlDate5Layout.setHorizontalGroup(
+            pnlDate5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDate5Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblDate5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        pnlDate5Layout.setVerticalGroup(
+            pnlDate5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblDate5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pnlDate6.setBackground(new java.awt.Color(32, 32, 32));
+        pnlDate6.setMaximumSize(new java.awt.Dimension(120, 40));
+        pnlDate6.setMinimumSize(new java.awt.Dimension(120, 40));
+
+        lblDate6.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblDate6.setForeground(new java.awt.Color(255, 255, 255));
+        lblDate6.setText("jLabel7");
+        lblDate6.setMaximumSize(new java.awt.Dimension(120, 40));
+        lblDate6.setMinimumSize(new java.awt.Dimension(120, 40));
+        lblDate6.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblDate6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDate6MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlDate6Layout = new javax.swing.GroupLayout(pnlDate6);
+        pnlDate6.setLayout(pnlDate6Layout);
+        pnlDate6Layout.setHorizontalGroup(
+            pnlDate6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDate6Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblDate6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        pnlDate6Layout.setVerticalGroup(
+            pnlDate6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblDate6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pnlDate7.setBackground(new java.awt.Color(32, 32, 32));
+        pnlDate7.setMaximumSize(new java.awt.Dimension(120, 40));
+        pnlDate7.setMinimumSize(new java.awt.Dimension(120, 40));
+
+        lblDate7.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblDate7.setForeground(new java.awt.Color(255, 255, 255));
+        lblDate7.setText("jLabel5");
+        lblDate7.setMaximumSize(new java.awt.Dimension(120, 40));
+        lblDate7.setMinimumSize(new java.awt.Dimension(120, 40));
+        lblDate7.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblDate7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDate7MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlDate7Layout = new javax.swing.GroupLayout(pnlDate7);
+        pnlDate7.setLayout(pnlDate7Layout);
+        pnlDate7Layout.setHorizontalGroup(
+            pnlDate7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDate7Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblDate7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        pnlDate7Layout.setVerticalGroup(
+            pnlDate7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblDate7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pnlDate2.setBackground(new java.awt.Color(32, 32, 32));
+        pnlDate2.setMaximumSize(new java.awt.Dimension(120, 40));
+        pnlDate2.setMinimumSize(new java.awt.Dimension(120, 40));
+
+        lblDate2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblDate2.setForeground(new java.awt.Color(255, 255, 255));
+        lblDate2.setText("jLabel1");
+        lblDate2.setMaximumSize(new java.awt.Dimension(120, 40));
+        lblDate2.setMinimumSize(new java.awt.Dimension(120, 40));
+        lblDate2.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblDate2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDate2MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlDate2Layout = new javax.swing.GroupLayout(pnlDate2);
+        pnlDate2.setLayout(pnlDate2Layout);
+        pnlDate2Layout.setHorizontalGroup(
+            pnlDate2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDate2Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblDate2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        pnlDate2Layout.setVerticalGroup(
+            pnlDate2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblDate2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pnlDate3.setBackground(new java.awt.Color(32, 32, 32));
+        pnlDate3.setAlignmentX(0.0F);
+        pnlDate3.setAlignmentY(0.0F);
+        pnlDate3.setMaximumSize(new java.awt.Dimension(120, 40));
+        pnlDate3.setMinimumSize(new java.awt.Dimension(120, 40));
+
+        lblDate3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblDate3.setForeground(new java.awt.Color(255, 255, 255));
+        lblDate3.setText("jLabel2");
+        lblDate3.setMaximumSize(new java.awt.Dimension(120, 40));
+        lblDate3.setMinimumSize(new java.awt.Dimension(120, 40));
+        lblDate3.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblDate3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDate3MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlDate3Layout = new javax.swing.GroupLayout(pnlDate3);
+        pnlDate3.setLayout(pnlDate3Layout);
+        pnlDate3Layout.setHorizontalGroup(
+            pnlDate3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDate3Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblDate3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        pnlDate3Layout.setVerticalGroup(
+            pnlDate3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblDate3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout pnlListDateLayout = new javax.swing.GroupLayout(pnlListDate);
+        pnlListDate.setLayout(pnlListDateLayout);
+        pnlListDateLayout.setHorizontalGroup(
+            pnlListDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlListDateLayout.createSequentialGroup()
+                .addContainerGap(121, Short.MAX_VALUE)
+                .addComponent(pnlDate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(pnlDate2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(pnlDate3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(pnlDate4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(pnlDate5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(pnlDate6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(pnlDate7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
+        );
+        pnlListDateLayout.setVerticalGroup(
+            pnlListDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlListDateLayout.createSequentialGroup()
+                .addGroup(pnlListDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlDate3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlDate2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlDate7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlDate6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlDate5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlDate4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlDate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 22, Short.MAX_VALUE))
+        );
+
+        pnlListDateSchedule.setBackground(new java.awt.Color(32, 32, 32));
+
+        javax.swing.GroupLayout pnlListDateScheduleLayout = new javax.swing.GroupLayout(pnlListDateSchedule);
+        pnlListDateSchedule.setLayout(pnlListDateScheduleLayout);
+        pnlListDateScheduleLayout.setHorizontalGroup(
+            pnlListDateScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlListDateScheduleLayout.setVerticalGroup(
+            pnlListDateScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 404, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout pnlListScheduleMovieLayout = new javax.swing.GroupLayout(pnlListScheduleMovie);
+        pnlListScheduleMovie.setLayout(pnlListScheduleMovieLayout);
+        pnlListScheduleMovieLayout.setHorizontalGroup(
+            pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
+                        .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblScheduleMovie)
+                            .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
+                                .addComponent(lblCinema, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(pnlCbxCinema, javax.swing.GroupLayout.DEFAULT_SIZE, 1220, Short.MAX_VALUE))
+                            .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
+                                .addComponent(lblTheater, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(pnlCbxTheater, javax.swing.GroupLayout.DEFAULT_SIZE, 1220, Short.MAX_VALUE))
+                            .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
+                                .addComponent(lblArea, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(pnlCbxArea, javax.swing.GroupLayout.DEFAULT_SIZE, 1220, Short.MAX_VALUE)))
+                        .addContainerGap(17, Short.MAX_VALUE))
+                    .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
+                        .addComponent(pnlListDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        pnlListScheduleMovieLayout.setVerticalGroup(
+            pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblScheduleMovie, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlCbxArea, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                    .addComponent(lblArea, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlCbxTheater, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(lblTheater, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlCbxCinema, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(lblCinema, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlListDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        pnlFillmActors.setBackground(new java.awt.Color(32, 32, 32));
+        pnlFillmActors.setMaximumSize(new java.awt.Dimension(1320, 164));
+        pnlFillmActors.setPreferredSize(new java.awt.Dimension(1310, 164));
+
         lblFilmActors.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         lblFilmActors.setForeground(new java.awt.Color(255, 255, 255));
         lblFilmActors.setText("Diễn viên");
@@ -138,6 +717,29 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         lblActorsName.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         lblActorsName.setForeground(new java.awt.Color(240, 240, 240));
         lblActorsName.setText("Sam Worthington, Zoe Saldana, Sigourney Weaver, Stephen Long, Michelle Rodriguez, Giovanni Ribisi, ...");
+
+        javax.swing.GroupLayout pnlFillmActorsLayout = new javax.swing.GroupLayout(pnlFillmActors);
+        pnlFillmActors.setLayout(pnlFillmActorsLayout);
+        pnlFillmActorsLayout.setHorizontalGroup(
+            pnlFillmActorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFillmActorsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlFillmActorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFilmActors, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblActorsName, javax.swing.GroupLayout.DEFAULT_SIZE, 1297, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        pnlFillmActorsLayout.setVerticalGroup(
+            pnlFillmActorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFillmActorsLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(lblFilmActors, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblActorsName)
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+
+        pnlFilmReview.setBackground(new java.awt.Color(32, 32, 32));
 
         lblReview.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         lblReview.setForeground(new java.awt.Color(255, 255, 255));
@@ -151,63 +753,52 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         lblReviewLink.setForeground(new java.awt.Color(0, 153, 255));
         lblReviewLink.setText("https://ww.yan.vn/review-phim-muoi-loi-nguyen-tro-lai-hoi-3-be-cua-khet-let-chi-pu-hong-anh-toa-sang-3140109.html");
 
-        lblExit.setForeground(new java.awt.Color(255, 255, 255));
-        lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
-        lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblExitMouseClicked(evt);
-            }
-        });
-
-        lblBack.setForeground(new java.awt.Color(255, 255, 255));
-        lblBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back.png"))); // NOI18N
-        lblBack.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBackMouseClicked(evt);
-            }
-        });
+        javax.swing.GroupLayout pnlFilmReviewLayout = new javax.swing.GroupLayout(pnlFilmReview);
+        pnlFilmReview.setLayout(pnlFilmReviewLayout);
+        pnlFilmReviewLayout.setHorizontalGroup(
+            pnlFilmReviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFilmReviewLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlFilmReviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblReview, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblReviewTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblReviewLink, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        pnlFilmReviewLayout.setVerticalGroup(
+            pnlFilmReviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFilmReviewLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblReview, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblReviewTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblReviewLink)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout pnlGlobalLayout = new javax.swing.GroupLayout(pnlGlobal);
         pnlGlobal.setLayout(pnlGlobalLayout);
         pnlGlobalLayout.setHorizontalGroup(
             pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlGlobalLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(22, 22, 22)
                 .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlGlobalLayout.createSequentialGroup()
-                        .addComponent(lblReviewLink, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))
-                    .addGroup(pnlGlobalLayout.createSequentialGroup()
                         .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblReview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblFilmActors, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblFilmName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblFilmCategorys, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlListScheduleMovie, javax.swing.GroupLayout.PREFERRED_SIZE, 1358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlFillmActors, javax.swing.GroupLayout.PREFERRED_SIZE, 1317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlFilmReview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlFilmInfomations, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlGlobalLayout.createSequentialGroup()
+                        .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(pnlMovie, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlGlobalLayout.createSequentialGroup()
-                                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(pnlGlobalLayout.createSequentialGroup()
-                                        .addComponent(lblBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblActorsName, javax.swing.GroupLayout.PREFERRED_SIZE, 1311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblReviewTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(pnlGlobalLayout.createSequentialGroup()
-                                            .addComponent(lblIMDBText, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(lblIMDBValue, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(lblRottenTomatoesText, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(lblRottenTomatoesValue, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(4, 4, 4)
-                                            .addComponent(lblMetacriticText, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(lblMetacriticValue, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(imgBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 1317, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                .addComponent(lblBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1225, 1225, 1225)
+                                .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(59, 63, Short.MAX_VALUE))))
         );
         pnlGlobalLayout.setVerticalGroup(
             pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,32 +808,16 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
                     .addComponent(lblBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imgBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(lblFilmName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlMovie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblFilmCategorys, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlFilmInfomations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlListScheduleMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlFillmActors, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblIMDBText, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblIMDBValue, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRottenTomatoesText, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRottenTomatoesValue, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMetacriticText, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMetacriticValue, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addComponent(lblFilmActors, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblActorsName)
-                .addGap(42, 42, 42)
-                .addComponent(lblReview, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblReviewTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblReviewLink)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addComponent(pnlFilmReview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -250,22 +825,16 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnlGlobal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE)
+                .addComponent(pnlGlobal, javax.swing.GroupLayout.PREFERRED_SIZE, 1410, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnlGlobal, javax.swing.GroupLayout.PREFERRED_SIZE, 1018, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlGlobal, javax.swing.GroupLayout.PREFERRED_SIZE, 2045, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_lblExitMouseClicked
 
     private void lblBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackMouseClicked
         try {
@@ -275,12 +844,59 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_lblBackMouseClicked
 
+    private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_lblExitMouseClicked
+
+    private void lblDate1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate1MouseClicked
+        setDefault();
+        setScreen(pnlDate1, lblDate1);
+    }//GEN-LAST:event_lblDate1MouseClicked
+
+    private void lblDate4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate4MouseClicked
+        setDefault();
+        setScreen(pnlDate4, lblDate4);
+    }//GEN-LAST:event_lblDate4MouseClicked
+
+    private void lblDate5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate5MouseClicked
+        setDefault();
+        setScreen(pnlDate5, lblDate5);
+    }//GEN-LAST:event_lblDate5MouseClicked
+
+    private void lblDate6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate6MouseClicked
+        setDefault();
+        setScreen(pnlDate6, lblDate6);
+    }//GEN-LAST:event_lblDate6MouseClicked
+
+    private void lblDate7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate7MouseClicked
+        setDefault();
+        setScreen(pnlDate7, lblDate7);
+    }//GEN-LAST:event_lblDate7MouseClicked
+
+    private void lblDate2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate2MouseClicked
+        setDefault();
+        setScreen(pnlDate2, lblDate2);
+    }//GEN-LAST:event_lblDate2MouseClicked
+
+    private void lblDate3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate3MouseClicked
+        setDefault();
+        setScreen(pnlDate3, lblDate3);
+    }//GEN-LAST:event_lblDate3MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel imgBackground;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblActorsName;
+    private javax.swing.JLabel lblArea;
     private javax.swing.JLabel lblBack;
+    private javax.swing.JLabel lblCinema;
+    private javax.swing.JLabel lblDate1;
+    private javax.swing.JLabel lblDate2;
+    private javax.swing.JLabel lblDate3;
+    private javax.swing.JLabel lblDate4;
+    private javax.swing.JLabel lblDate5;
+    private javax.swing.JLabel lblDate6;
+    private javax.swing.JLabel lblDate7;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblFilmActors;
     private javax.swing.JLabel lblFilmCategorys;
@@ -294,7 +910,27 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblReviewTitle;
     private javax.swing.JLabel lblRottenTomatoesText;
     private javax.swing.JLabel lblRottenTomatoesValue;
+    private javax.swing.JLabel lblScheduleMovie;
+    private javax.swing.JLabel lblTheater;
+    private javax.swing.JPanel pnlCbxArea;
+    private javax.swing.JPanel pnlCbxCinema;
+    private javax.swing.JPanel pnlCbxTheater;
+    private javax.swing.JPanel pnlDate1;
+    private javax.swing.JPanel pnlDate2;
+    private javax.swing.JPanel pnlDate3;
+    private javax.swing.JPanel pnlDate4;
+    private javax.swing.JPanel pnlDate5;
+    private javax.swing.JPanel pnlDate6;
+    private javax.swing.JPanel pnlDate7;
+    private javax.swing.JPanel pnlFillmActors;
+    private javax.swing.JPanel pnlFilmInfomations;
+    private javax.swing.JPanel pnlFilmReview;
+    private javax.swing.JPanel pnlFilmScores;
     private javax.swing.JPanel pnlGlobal;
+    private javax.swing.JPanel pnlListDate;
+    private javax.swing.JPanel pnlListDateSchedule;
+    private javax.swing.JPanel pnlListScheduleMovie;
+    private javax.swing.JPanel pnlMovie;
     private javax.swing.JTextArea txtAreaFilmContent;
     // End of variables declaration//GEN-END:variables
 }
