@@ -11,7 +11,11 @@ import Models.Citi;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,7 +24,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -51,9 +57,17 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
             panels[i].setBackground(Color.decode("#202020"));
         }
     }
-    
+    public void setBanner(String link) throws MalformedURLException, IOException{
+        URL url = new URL(link);
+        BufferedImage c = ImageIO.read(url);
+        ImageIcon image = new ImageIcon(c);
+        Image fixImage = image.getImage().getScaledInstance(1315,470,java.awt.Image.SCALE_SMOOTH);
+        image = new ImageIcon(fixImage);
+        lblBanner.setIcon(image);
+    }
     public DetailFilmJPanel(String str) throws IOException {
         initComponents();
+        setBanner("https://traffic-edge31.cdn.vncdn.io/cinema/img/81593612680059158-sfw4m2tOgQRzhF6VXxaXGfd1vX.jpg");
         lblFilmName.setText(str);
         lblExit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblBack.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -111,7 +125,8 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlGlobal = new javax.swing.JPanel();
-        pnlMovie = new javax.swing.JPanel();
+        pnlBanner = new javax.swing.JPanel();
+        lblBanner = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
         lblBack = new javax.swing.JLabel();
         pnlFilmInfomations = new javax.swing.JPanel();
@@ -164,17 +179,21 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         pnlGlobal.setMaximumSize(new java.awt.Dimension(1400, 1000));
         pnlGlobal.setPreferredSize(new java.awt.Dimension(1400, 1000));
 
-        pnlMovie.setBackground(new java.awt.Color(32, 32, 32));
+        pnlBanner.setBackground(new java.awt.Color(32, 32, 32));
 
-        javax.swing.GroupLayout pnlMovieLayout = new javax.swing.GroupLayout(pnlMovie);
-        pnlMovie.setLayout(pnlMovieLayout);
-        pnlMovieLayout.setHorizontalGroup(
-            pnlMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnlBannerLayout = new javax.swing.GroupLayout(pnlBanner);
+        pnlBanner.setLayout(pnlBannerLayout);
+        pnlBannerLayout.setHorizontalGroup(
+            pnlBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBannerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblBanner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        pnlMovieLayout.setVerticalGroup(
-            pnlMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 455, Short.MAX_VALUE)
+        pnlBannerLayout.setVerticalGroup(
+            pnlBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBannerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblBanner, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))
         );
 
         lblExit.setForeground(new java.awt.Color(255, 255, 255));
@@ -352,7 +371,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         );
         pnlCbxAreaLayout.setVerticalGroup(
             pnlCbxAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 127, Short.MAX_VALUE)
+            .addGap(0, 121, Short.MAX_VALUE)
         );
 
         pnlCbxTheater.setBackground(new java.awt.Color(32, 32, 32));
@@ -367,7 +386,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         );
         pnlCbxTheaterLayout.setVerticalGroup(
             pnlCbxTheaterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 129, Short.MAX_VALUE)
+            .addGap(0, 123, Short.MAX_VALUE)
         );
 
         lblTheater.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -390,7 +409,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         );
         pnlCbxCinemaLayout.setVerticalGroup(
             pnlCbxCinemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 129, Short.MAX_VALUE)
+            .addGap(0, 123, Short.MAX_VALUE)
         );
 
         pnlListDate.setBackground(new java.awt.Color(32, 32, 32));
@@ -652,7 +671,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         );
         pnlListDateScheduleLayout.setVerticalGroup(
             pnlListDateScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
+            .addGap(0, 396, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlListScheduleMovieLayout = new javax.swing.GroupLayout(pnlListScheduleMovie);
@@ -690,15 +709,15 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
                 .addComponent(lblScheduleMovie, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCbxArea, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                    .addComponent(pnlCbxArea, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                     .addComponent(lblArea, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCbxTheater, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(pnlCbxTheater, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                     .addComponent(lblTheater, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCbxCinema, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(pnlCbxCinema, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                     .addComponent(lblCinema, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlListDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -794,7 +813,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlGlobalLayout.createSequentialGroup()
                         .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(pnlMovie, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlBanner, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlGlobalLayout.createSequentialGroup()
                                 .addComponent(lblBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(1225, 1225, 1225)
@@ -809,11 +828,11 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
                     .addComponent(lblBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlMovie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlFilmInfomations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlListScheduleMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
+                .addComponent(pnlListScheduleMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(pnlFillmActors, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -890,6 +909,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblActorsName;
     private javax.swing.JLabel lblArea;
     private javax.swing.JLabel lblBack;
+    private javax.swing.JLabel lblBanner;
     private javax.swing.JLabel lblCinema;
     private javax.swing.JLabel lblDate1;
     private javax.swing.JLabel lblDate2;
@@ -913,6 +933,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblRottenTomatoesValue;
     private javax.swing.JLabel lblScheduleMovie;
     private javax.swing.JLabel lblTheater;
+    private javax.swing.JPanel pnlBanner;
     private javax.swing.JPanel pnlCbxArea;
     private javax.swing.JPanel pnlCbxCinema;
     private javax.swing.JPanel pnlCbxTheater;
@@ -931,7 +952,6 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel pnlListDate;
     private javax.swing.JPanel pnlListDateSchedule;
     private javax.swing.JPanel pnlListScheduleMovie;
-    private javax.swing.JPanel pnlMovie;
     private javax.swing.JTextArea txtAreaFilmContent;
     // End of variables declaration//GEN-END:variables
 }
