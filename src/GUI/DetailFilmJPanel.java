@@ -178,11 +178,13 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         lblTheater = new javax.swing.JLabel();
         pnlCbxTheater = new javax.swing.JPanel();
         pnlListDateSchedule = new javax.swing.JPanel();
+        pnlCbxCinema1 = new javax.swing.JPanel();
+        pnlSearch = new javax.swing.JPanel();
+        lblSearch = new javax.swing.JLabel();
         pnlFilmReview = new javax.swing.JPanel();
         lblReviewLink = new javax.swing.JLabel();
         lblReview = new javax.swing.JLabel();
         lblReviewTitle = new javax.swing.JLabel();
-        txtfSearch = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(32, 32, 32));
 
@@ -834,7 +836,141 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         );
         pnlListDateScheduleLayout.setVerticalGroup(
             pnlListDateScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
+            .addGap(0, 420, Short.MAX_VALUE)
+        );
+
+        pnlCbxCinema1.setBackground(new java.awt.Color(32, 32, 32));
+        pnlCbxCinema1.setMaximumSize(new java.awt.Dimension(1225, 32767));
+        pnlCbxCinema1.setPreferredSize(new java.awt.Dimension(1225, 50));
+
+        javax.swing.GroupLayout pnlCbxCinema1Layout = new javax.swing.GroupLayout(pnlCbxCinema1);
+        pnlCbxCinema1.setLayout(pnlCbxCinema1Layout);
+        pnlCbxCinema1Layout.setHorizontalGroup(
+            pnlCbxCinema1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1200, Short.MAX_VALUE)
+        );
+        pnlCbxCinema1Layout.setVerticalGroup(
+            pnlCbxCinema1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        pnlSearch.setBackground(new java.awt.Color(32, 32, 32));
+        pnlSearch.setMaximumSize(new java.awt.Dimension(120, 40));
+        pnlSearch.setMinimumSize(new java.awt.Dimension(120, 40));
+
+        lblSearch.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblSearch.setForeground(new java.awt.Color(255, 255, 255));
+        lblSearch.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSearch.setText("Tìm kiếm");
+        lblSearch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        lblSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblSearch.setMaximumSize(new java.awt.Dimension(120, 40));
+        lblSearch.setMinimumSize(new java.awt.Dimension(120, 40));
+        lblSearch.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblSearchMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlSearchLayout = new javax.swing.GroupLayout(pnlSearch);
+        pnlSearch.setLayout(pnlSearchLayout);
+        pnlSearchLayout.setHorizontalGroup(
+            pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1292, Short.MAX_VALUE)
+            .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlSearchLayout.createSequentialGroup()
+                    .addComponent(lblSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 1282, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        pnlSearchLayout.setVerticalGroup(
+            pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 51, Short.MAX_VALUE)
+            .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnlGlobalLayout = new javax.swing.GroupLayout(pnlGlobal);
+        pnlGlobal.setLayout(pnlGlobalLayout);
+        pnlGlobalLayout.setHorizontalGroup(
+            pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlGlobalLayout.createSequentialGroup()
+                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlGlobalLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(pnlBanner, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(pnlGlobalLayout.createSequentialGroup()
+                                    .addComponent(lblBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(1225, 1225, 1225)
+                                    .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlGlobalLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(pnlFilmInfomations, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlGlobalLayout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(lblScheduleMovie))
+                            .addGroup(pnlGlobalLayout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlGlobalLayout.createSequentialGroup()
+                                        .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblArea)
+                                            .addComponent(lblTheater)
+                                            .addComponent(lblCinema, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(pnlCbxTheater, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(pnlCbxArea, javax.swing.GroupLayout.PREFERRED_SIZE, 1220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(pnlCbxCinema1, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                    .addGroup(pnlGlobalLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(pnlListDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlGlobalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
+        pnlGlobalLayout.setVerticalGroup(
+            pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlGlobalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlGlobalLayout.createSequentialGroup()
+                        .addComponent(pnlBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlFilmInfomations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(lblScheduleMovie, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlListDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblArea, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlCbxArea, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlCbxTheater, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlGlobalLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(lblTheater, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCinema, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlCbxCinema1, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
+                        .addGap(64, 64, 64))
+                    .addGroup(pnlGlobalLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87))
         );
 
         pnlFilmReview.setBackground(new java.awt.Color(32, 32, 32));
@@ -872,104 +1008,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
                 .addComponent(lblReviewTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblReviewLink)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        txtfSearch.setBackground(new java.awt.Color(32, 32, 32));
-        txtfSearch.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        txtfSearch.setForeground(new java.awt.Color(182, 182, 182));
-        txtfSearch.setText("Tìm kiếm ...");
-        txtfSearch.setToolTipText("");
-        txtfSearch.setMargin(new java.awt.Insets(10, 10, 10, 10));
-        txtfSearch.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtfSearchFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtfSearchFocusLost(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlGlobalLayout = new javax.swing.GroupLayout(pnlGlobal);
-        pnlGlobal.setLayout(pnlGlobalLayout);
-        pnlGlobalLayout.setHorizontalGroup(
-            pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlGlobalLayout.createSequentialGroup()
-                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlGlobalLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(pnlBanner, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(pnlGlobalLayout.createSequentialGroup()
-                                    .addComponent(lblBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(1225, 1225, 1225)
-                                    .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(pnlGlobalLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(pnlFilmInfomations, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlGlobalLayout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblScheduleMovie)
-                                    .addGroup(pnlGlobalLayout.createSequentialGroup()
-                                        .addComponent(lblCinema, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(pnlGlobalLayout.createSequentialGroup()
-                                                .addGap(10, 10, 10)
-                                                .addComponent(pnlCbxArea, javax.swing.GroupLayout.PREFERRED_SIZE, 1220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(pnlListDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlGlobalLayout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pnlGlobalLayout.createSequentialGroup()
-                                        .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblArea)
-                                            .addComponent(lblTheater))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(pnlCbxTheater, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(pnlGlobalLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pnlFilmReview, javax.swing.GroupLayout.PREFERRED_SIZE, 1287, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        pnlGlobalLayout.setVerticalGroup(
-            pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlGlobalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlFilmInfomations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(lblScheduleMovie, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCinema, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlListDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblArea, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlCbxArea, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCbxTheater, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlGlobalLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(lblTheater, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14)
-                .addComponent(txtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlFilmReview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -977,14 +1016,22 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 10, Short.MAX_VALUE)
-                .addComponent(pnlGlobal, javax.swing.GroupLayout.PREFERRED_SIZE, 1410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlGlobal, javax.swing.GroupLayout.PREFERRED_SIZE, 1410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlFilmReview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlGlobal, javax.swing.GroupLayout.PREFERRED_SIZE, 2045, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 155, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(pnlGlobal, javax.swing.GroupLayout.PREFERRED_SIZE, 2031, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlFilmReview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(103, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1035,19 +1082,10 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         setScreen(pnlDate3, lblDate3);
     }//GEN-LAST:event_lblDate3MouseClicked
 
-    private void txtfSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfSearchFocusGained
-       if (txtfSearch.getText().equals("Tìm kiếm ...")) {
-           txtfSearch.setText("");
-           txtfSearch.setForeground(new Color(255, 255, 255));
-       }
-    }//GEN-LAST:event_txtfSearchFocusGained
-
-    private void txtfSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtfSearchFocusLost
-         if (txtfSearch.getText().equals("")) {
-           txtfSearch.setText("Tìm kiếm ...");
-           txtfSearch.setForeground(new Color(153, 153, 153));
-        }
-    }//GEN-LAST:event_txtfSearchFocusLost
+    private void lblSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMousePressed
+        lblSearch.setForeground(Color.decode("#ffffff"));
+         pnlSearch.setBackground(Color.decode("#202020"));
+    }//GEN-LAST:event_lblSearchMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1084,11 +1122,13 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblRottenTomatoesText;
     private javax.swing.JLabel lblRottenTomatoesValue;
     private javax.swing.JLabel lblScheduleMovie;
+    private javax.swing.JLabel lblSearch;
     private javax.swing.JLabel lblTheater;
     private javax.swing.JLabel lblTrailer;
     private javax.swing.JLabel lblTrailerLink;
     private javax.swing.JPanel pnlBanner;
     private javax.swing.JPanel pnlCbxArea;
+    private javax.swing.JPanel pnlCbxCinema1;
     private javax.swing.JPanel pnlCbxTheater;
     private javax.swing.JPanel pnlDate1;
     private javax.swing.JPanel pnlDate2;
@@ -1108,7 +1148,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel pnlGlobal;
     private javax.swing.JPanel pnlListDate;
     private javax.swing.JPanel pnlListDateSchedule;
+    private javax.swing.JPanel pnlSearch;
     private javax.swing.JTextArea txtAreaFilmContent;
-    private javax.swing.JTextField txtfSearch;
     // End of variables declaration//GEN-END:variables
 }
