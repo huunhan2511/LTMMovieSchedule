@@ -10,11 +10,16 @@ import Models.Cineplex;
 import Models.Citi;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -48,6 +53,26 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     public void setScreen(JPanel pnlItem,JLabel lblItem){
         lblItem.setForeground(Color.decode("#202020"));
         pnlItem.setBackground(Color.decode("#ffffff"));
+    }
+    public void clickLink(String link, JLabel jlabel){
+        jlabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jlabel.addMouseListener(new MouseAdapter() {
+          public void mouseClicked(MouseEvent e) {
+             if (e.getClickCount() > 0) {
+                 if (Desktop.isDesktopSupported()) {
+                       Desktop desktop = Desktop.getDesktop();
+                       try {
+                           URI uri = new URI(link);
+                           desktop.browse(uri);
+                       } catch (IOException ex) {
+                           ex.printStackTrace();
+                       } catch (URISyntaxException ex) {
+                           ex.printStackTrace();
+                       }
+               }
+             }
+          }
+       });
     }
     public void setDefault(){
         JLabel[] labels = {lblDate1,lblDate2,lblDate3,lblDate4,lblDate5,lblDate6,lblDate7};
@@ -372,6 +397,11 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         lblTrailerLink.setFont(new java.awt.Font("SansSerif", 2, 14)); // NOI18N
         lblTrailerLink.setForeground(new java.awt.Color(0, 153, 255));
         lblTrailerLink.setText("https://ww.yan.vn/review-phim-muoi-loi-nguyen-tro-lai-hoi-3-be-cua-khet-let-chi-pu-hong-anh-toa-sang-3140109.html");
+        lblTrailerLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblTrailerLinkMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlFilmTrailerLayout = new javax.swing.GroupLayout(pnlFilmTrailer);
         pnlFilmTrailer.setLayout(pnlFilmTrailerLayout);
@@ -1086,6 +1116,10 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         lblSearch.setForeground(Color.decode("#ffffff"));
          pnlSearch.setBackground(Color.decode("#202020"));
     }//GEN-LAST:event_lblSearchMousePressed
+
+    private void lblTrailerLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTrailerLinkMouseClicked
+        clickLink("https://google.com", lblTrailerLink);
+    }//GEN-LAST:event_lblTrailerLinkMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
