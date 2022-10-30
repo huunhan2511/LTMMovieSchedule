@@ -1,0 +1,8 @@
+6;CGV
+8;Lotte Cinema
+9;Galaxy Cinema
+3;BHD Star
+10;Beta Cinemas
+5;Cinestar
+4;Mega GS
+7;DCINE

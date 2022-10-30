@@ -6,6 +6,7 @@
 package GUI.Custom;
 
 
+import Models.Cinema;
 import Models.Cineplex;
 import Models.Citi;
 import java.awt.Color;
@@ -23,7 +24,7 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicComboBoxUI;
-public class SweetComboBox extends JComboBox<Object>{
+public class SweetComboBox extends JComboBox<Object>{ 
     public SweetComboBox (String backgroundColor, String foregroundColor , int left, int top, int width, int height,List<Object> value)
     {
             this.setModel(new javax.swing.DefaultComboBoxModel<Object>(value.toArray(new Object[0])));
@@ -71,6 +72,10 @@ class MyComboBoxRenderer extends DefaultListCellRenderer{
               if(value instanceof Cineplex){
                 Cineplex myObj = (Cineplex) value;
                 setText(myObj.getName());
+              }
+              if(value instanceof Cinema){
+                  Cinema myObj = (Cinema) value;
+                  setText(myObj.getName());
               }
             }
 //            

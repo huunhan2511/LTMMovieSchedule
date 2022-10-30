@@ -1,0 +1,185 @@
+0fdbe392-734d-402b-9399-d22bd37b6cee;50;10;Beta Quang Trung
+0000000001;50;3;BHD Star 3 tháng 2
+0000000002;50;3;BHD Star Bitexco
+0000000006;50;3;BHD Star Lê Văn Việt
+0000000003;50;3;BHD Star Phạm Hùng
+0000000004;50;3;BHD Star Quang Trung
+0000000005;50;3;BHD Star Thảo Điền
+034;50;6;CGV Aeon Bình Tân
+012;50;6;CGV Aeon Tân Phú
+008;50;6;CGV Crescent Mall
+079;50;6;CGV Giga Mall Thủ Đức
+033;50;6;CGV Hoàng Văn Thụ
+004;50;6;CGV Hùng Vương Plaza
+059;50;6;CGV IMC Trần Quang Khải
+022;50;6;CGV Liberty Citypoint
+088;50;6;CGV Lý Chính Thắng
+010;50;6;CGV Pandora City
+049;50;6;CGV Parkson Đồng Khởi
+030;50;6;CGV Pearl Plaza
+038;50;6;CGV Saigonres Nguyễn Xí
+073;50;6;CGV Satra Củ Chi
+057;50;6;CGV Sư Vạn Hạnh
+021;50;6;CGV Thảo Điền Pearl
+006;50;6;CGV Trường Sơn
+071;50;6;CGV Vincom Center Landmark 81
+035;50;6;CGV Vincom Đồng Khởi
+031;50;6;CGV Vincom Gò Vấp
+023;50;6;CGV Vincom Thủ Đức
+024;50;6;CGV Vivo City
+3;50;5;CineStar Hai Bà Trưng
+1;50;5;CineStar Quốc Thanh
+2;50;7;Dcine Bến Thành
+12f89a54-57df-4dc7-9633-56eb828b2956;50;9;Galaxy Huỳnh Tấn Phát
+fe18db21-cdee-44ba-90c3-f2e3ac6c8320;50;9;Galaxy Kinh Dương Vương
+d1b07444-41e4-46b4-99c6-444e97518624;50;9;Galaxy Linh Trung
+fb233b0f-edb4-4eb1-ade8-7f8b83ab2457;50;9;Galaxy Nguyễn Du
+bd298261-58ea-4e87-bb27-337be87ba00c;50;9;Galaxy Nguyễn Văn Quá
+252a5eaf-7764-4e8a-a5f1-becbd2cf26c4;50;9;Galaxy Phạm Văn Chí
+13ca0671-3301-4341-ab39-15893aec02f6;50;9;Galaxy Quang Trung
+80f80767-6c5a-44b0-8ca5-fe62c40aa4c4;50;9;Galaxy Tân Bình
+b4937159-1a8e-43c1-b6eb-e92e13352e2e;50;9;Galaxy Trung Chánh
+8009;50;8;Lotte Cantavil
+8008;50;8;Lotte Cộng Hoà
+8027;50;8;Lotte Gò Vấp
+8044;50;8;Lotte Gold View
+8046;50;8;Lotte Moonlight
+8001;50;8;Lotte Nam Sài Gòn
+8024;50;8;Lotte Nowzone
+8012;50;8;Lotte Phú Thọ
+8028;50;8;Lotte Thủ Đức
+8042;50;8;Lotte Ung Văn Khiêm
+MCT;50;4;Mega GS Cao Thắng
+090;1;6;Aeon Hà Đông
+8bdac2c9-2cc7-464b-8cff-4bc41403b74f;1;10;Beta Đan Phượng
+94d6c0ca-125b-43d0-8f65-9f0880b90beb;1;10;Beta Giải Phóng
+86fa4c35-8d26-4f60-9cf2-fbaaba0ee25d;1;10;Beta Mỹ Đình
+1f0b7d55-9dd6-4c46-bd4d-3b50024d14ec;1;10;Beta Thanh Xuân
+0000000009;1;3;BHD Star Discovery
+0000000007;1;3;BHD Star Phạm Ngọc Thạch
+0000000010;1;3;BHD Star The Garden
+027;1;6;CGV Aeon Long Biên
+041;1;6;CGV Artemis Hà Nội
+046;1;6;CGV Hà Nội Centerpoint
+018;1;6;CGV Hồ Gươm Plaza
+032;1;6;CGV Indochina Plaza Hà Nội
+060;1;6;CGV Machinco
+009;1;6;CGV Mipec Tower
+037;1;6;CGV Rice City
+082;1;6;CGV Skylake Phạm Hùng
+064;1;6;CGV Sun Grand Lương Yên 
+063;1;6;CGV Sun Grand Thụy Khuê
+048;1;6;CGV Tràng Tiền Plaza
+053;1;6;CGV Trương Định Plaza
+075;1;6;CGV Vincom Bắc Từ Liêm 
+001;1;6;CGV Vincom Center Bà Triệu
+056;1;6;CGV Vincom Long Biên 
+070;1;6;CGV Vincom Metropolis Liễu Giai 
+028;1;6;CGV Vincom Nguyễn Chí Thanh
+099;1;6;CGV Vincom Ocean Park
+054;1;6;CGV Vincom Royal City
+055;1;6;CGV Vincom Times City 
+083;1;6;CGV Vincom Trần Duy Hưng
+080;1;6;CGV Xuân Diệu
+5e0c771c-55b2-431c-a368-b8bd1d815e3d;1;9;Galaxy Mipec Long Biên
+23a1c3a8-7d85-485a-9b7a-7deab3e57eba;1;9;Galaxy Tràng Thi
+8005;1;8;Lotte Hà Đông
+8049;1;8;Lotte Kosmo
+8003;1;8;Lotte Landmark
+8034;1;8;Lotte Long Biên
+8048;1;8;Lotte Minh Khai
+8025;1;8;Lotte Thăng Long
+025;32;6;CGV Vincom Đà Nẵng
+005;32;6;CGV Vĩnh Trung Plaza
+3a9fe5b5-0f63-4889-aaae-6c1b76d7050d;32;9;Galaxy Đà Nẵng
+8007;32;8;Lotte Đà Nẵng
+6af5c313-0e3e-4e72-86d6-2e4ed45e7e35;48;10;Beta Biên Hòa
+d1678477-49ce-4417-bc39-a080cad0e9e8;48;10;Beta Long Khánh
+00b76686-a994-4da5-aee3-c508099a89d4;48;10;Beta Long Thành
+0000000011;48;3;BHD Star Long Khánh
+019;48;6;CGV Big C Đồng Nai
+003;48;6;CGV Coopmart Biên Hòa
+8019;48;8;Lotte Biên Hoà
+8006;48;8;Lotte Đồng Nai
+017;47;6;CGV Aeon Canary
+016;47;6;CGV Bình Dương Square
+058;47;6;CGV Empire
+4;47;5;CineStar Bình Dương
+8010;47;8;Lotte Bình Dương
+8045;47;8;Lotte Dĩ An
+013;59;6;CGV Sense City
+029;59;6;CGV Vincom Hùng Vương
+036;59;6;CGV Vincom Xuân Khánh
+8016;59;8;Lotte Cái Răng
+8018;59;8;Lotte Ninh Kiều
+b0e45ea2-443f-404f-9412-b97a6001f157;37;10;Beta Nha Trang
+072;37;6;CGV Big C Nha Trang
+8004;37;8;Lotte Thái Nguyên
+8038;37;8;Lotte Trần Phú
+042;60;6;CGV Vincom Rạch Giá
+2;44;5;CineStar Đà Lạt
+8036;44;8;Lotte Bảo Lộc
+097;61;6;CGV Vincom Sóc Trăng
+1;61;7;Dcine Sóc Trăng
+dfd9306f-fbc8-4807-a8c6-5e6c3f7ad71c;13;10;Beta Thái Nguyên
+061;13;6;CGV Vincom Thái Nguyên
+0000000008;31;3;BHD Star Huế
+5;31;5;CineStar Huế
+8013;31;8;Lotte Huế
+074;52;6;CGV GO! Mỹ Tho
+6;52;5;CineStar Mỹ Tho
+067;12;6;CGV Vincom Plaza Lạng Sơn
+5a102aff-459d-4613-906d-5a8a4396a74f;57;9;Galaxy Long Xuyên
+8020;57;8;Lotte Long Xuyên
+3db16884-48c4-406d-b873-fa65147f939a;49;10;Beta Phú Mỹ
+014;49;6;CGV Lam Sơn Square
+8015;49;8;Lotte Vũng Tàu
+ed75f9eb-4f2c-4448-aef8-7804178df564;15;10;Beta Bắc Giang
+8017;15;8;Lotte Bắc Giang
+8039;18;8;Lotte Bắc Ninh
+0f95ca57-3707-4e69-bf01-c15993afd3ea;53;9;Galaxy Bến Tre
+015;35;6;CGV Kim Cúc Plaza
+8011;39;8;Lotte Phan Thiết
+0a7ad4dd-1a39-46d7-9ec1-aaaf1d17cb55;63;9;Galaxy Cà Mau
+8041;63;8;Lotte Cà Mau
+026;42;6;CGV Buôn Mê Thuột
+59eb32e2-a35e-4af5-89a2-90debbaf9767;42;9;Galaxy Buôn Ma Thuột
+092;56;6;CGV Vincom Cao Lãnh
+8040;23;8;Lotte Phủ Lý
+047;28;6;CGV Vincom Hà Tĩnh
+8033;19;8;Lotte Hải Dương
+098;20;6;CGV Aeon Mall Hải Phòng
+002;20;6;CGV Thùy Dương Plaza
+077;20;6;CGV Vincom Hải Phòng
+e4c4d2ec-d494-4054-86df-1011bf53f9b6;20;9;Galaxy Hải Phòng
+8022;20;8;Lotte Hải Phòng
+045;58;6;CGV Vincom Vị Thanh
+093;21;6;CGV Ecopark Hưng Yên
+096;40;6;CGV Vincom Kon Tum
+8032;25;8;Lotte Nam Định
+086;27;6;CGV Vinh Centre
+f3ba1590-5904-4ce9-8178-e3c6a9608df4;27;9;Galaxy Vinh
+8029;27;8;Lotte Vinh
+8023;24;8;Lotte Ninh Bình
+8043;38;8;Lotte Phan Rang
+078;16;6;CGV Happyland Việt Trì
+8021;16;8;Lotte Việt Trì
+051;36;6;CGV Vincom Phú Yên
+8037;29;8;Lotte Đồng Hới
+8047;33;8;Lotte Hội An
+081;34;6;CGV Vincom Quảng Ngãi
+011;14;6;CGV Marine Plaza
+095;14;6;CGV Vincom Cẩm Phả
+020;14;6;CGV Vincom Hạ Long
+091;14;6;CGV Vincom Móng Cái 
+8014;14;8;Lotte Hạ Long
+062;8;6;CGV Vincom Sơn La
+068;46;6;CGV Vincom Tây Ninh
+8031;46;8;Lotte Tây Ninh
+8026;22;8;Lotte Thái Bình
+7d4980ac-eb8f-4bcb-97eb-77cbcd75dba2;26;10;Beta Thanh Hóa
+8035;26;8;Lotte Thanh Hoá
+039;54;6;CGV Vincom Trà Vinh
+8030;4;8;Lotte Tuyên Quang
+043;55;6;CGV Vincom Vĩnh Long
+044;10;6;CGV Vincom Yên Bái
