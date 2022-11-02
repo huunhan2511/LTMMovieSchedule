@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import Models.Film;
+import Socket.ClientThread;
 import controller.changeScreenController;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -28,19 +30,21 @@ public class PanelMovie extends javax.swing.JPanel {
     /**
      * Creates new form PanelMovie
      */
-    private String film;
-    public PanelMovie(String str) throws IOException {
+    private Film film;
+    public PanelMovie(Film film) throws IOException {
         initComponents();
+        this.film = film;
         setData();
-        film=str;
     }
     public void setData() throws MalformedURLException, IOException{
-        URL url = new URL("https://traffic-edge19.cdn.vncdn.io/cinema/img/81593614129596321-bxp5IUY05jLGeZ5bW85W2NF6Rgi.jpg");
+        URL url = new URL(film.getGraphicUrl());
         BufferedImage c = ImageIO.read(url);
         ImageIcon image = new ImageIcon(c);
         Image fixImage = image.getImage().getScaledInstance(200, 225, java.awt.Image.SCALE_SMOOTH);
         image = new ImageIcon(fixImage);
         lblImage.setIcon(image);
+        lblNameMovie.setText(film.getTitle());
+        lblDescription.setText(film.getDuration() + " - " + film.getApiRatingFormat());
         
     }
     /**
@@ -105,11 +109,12 @@ public class PanelMovie extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        try {
-            MovieSchedule.controller.setScreenDetailFilm(film);
-        } catch (IOException ex) {
-            Logger.getLogger(PanelMovie.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            MovieSchedule.controller.setScreenDetailFilm(film);
+//        } catch (IOException ex) {
+//            Logger.getLogger(PanelMovie.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        ClientThread.message = film.getApiFilmId();
     }//GEN-LAST:event_formMouseClicked
 
 

@@ -5,9 +5,11 @@
  */
 package GUI;
 
+import Models.ShowTimeCinema;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.List;
 import javax.swing.JPanel;
 
 /**
@@ -19,13 +21,15 @@ public class PanelListHourSchedule extends javax.swing.JPanel {
     /**
      * Creates new form PanelListHourSchedule
      */
-    public PanelListHourSchedule(String str) {
+    public PanelListHourSchedule(ShowTimeCinema showTime) {
         initComponents();
-        lblCategory.setText(str);
         pnlListHourSchedule.setLayout(new GridLayout(0,6,10,10));
-        for(int i =0;i<10;i++){
+        lblCategory.setText(showTime.getFilmType()+" | "+showTime.getCaptionType());
+        List<String> showTimes = showTime.getShowTimes();
+        
+        for(int i =0;i<showTimes.size();i++){
             JPanel pnl = new JPanel();
-            pnl.add(new GUI.PanelHourSchedule());
+            pnl.add(new GUI.PanelHourSchedule(showTimes.get(i)));
             pnl.setPreferredSize(new Dimension(120,50));
             pnl.setBackground(Color.decode("#202020"));
             pnlListHourSchedule.add(pnl);

@@ -6,12 +6,15 @@
 package ltmmovieschedule;
 
 import GUI.Custom.MyScrollBarUI;
+import Models.Film;
+import Socket.client;
 import controller.changeScreenController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -29,7 +32,7 @@ public class MovieSchedule extends javax.swing.JFrame {
     
     private int col = 6;
     private ArrayList<String> dayWeek;
-    public static changeScreenController  controller;
+    public static changeScreenController controller;
     public MovieSchedule() throws IOException {
         
         initComponents();

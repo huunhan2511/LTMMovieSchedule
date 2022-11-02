@@ -8,6 +8,7 @@ package controller;
 
 
 import Models.Citi;
+import Models.Film;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -43,12 +44,12 @@ public void setScreenMovieSchedule() throws IOException{
        
         
     } 
-public void setScreenDetailFilm(String str) throws IOException{
+public void setScreenDetailFilm(Film detailFilm) throws IOException, InterruptedException{
         
         this.selectedScreen = selectedScreen;
         pnlRoot.removeAll();
         pnlRoot.setLayout(new BorderLayout());
-        pnlRoot.add(new GUI.DetailFilmJPanel(str));
+        pnlRoot.add(new GUI.DetailFilmJPanel(detailFilm));
             
         pnlRoot.revalidate();
         pnlRoot.repaint();

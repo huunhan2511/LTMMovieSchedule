@@ -5,11 +5,15 @@
  */
 package GUI;
 
+import Models.Film;
+import Models.ShowTimeCinema;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 
 /**
@@ -21,20 +25,15 @@ public class PanelListScheduleMovie extends javax.swing.JPanel {
     /**
      * Creates new form PanelDateSchedule
      */
-    public PanelListScheduleMovie() throws IOException {
+    public PanelListScheduleMovie(Film film) throws IOException {
         initComponents();
         pnlMovie.setLayout(new BorderLayout());
         JPanel pnl = new JPanel();
-        pnl.add(new GUI.PanelMovie("1"));
+        pnl.add(new GUI.PanelMovie(film));
         pnl.setBackground(Color.decode("#202020"));
         pnl.setPreferredSize(new Dimension(200,300));
         pnlMovie.add(pnl);
-        
         pnlListHourSchedule.setLayout(new GridLayout(0,1,5,5));
-        pnlListHourSchedule.add(new GUI.PanelListHourSchedule("2D phụ đề"));
-        
-        pnlListHourSchedule.add(new GUI.PanelListHourSchedule("3D"));
-        pnlListHourSchedule.add(new GUI.PanelListHourSchedule("4D"));
     }
 
     /**

@@ -9,9 +9,16 @@ import GUI.Custom.SweetComboBox;
 import Models.Cinema;
 import Models.Cineplex;
 import Models.Citi;
+import Models.Film;
+import Models.Review;
+import Models.ShowTimeCinema;
+import Socket.ClientThread;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
@@ -19,8 +26,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -35,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -57,8 +63,15 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
      * @param lblItem
      */
     private ArrayList<String> dayWeek;
+    private ArrayList<String> dayWeekFormatYYYYMMDD;
     private List<Object> listCineplex,listCinema,listCiti;
-    private SweetComboBox cbxCineplex,cbxCiti;
+    private SweetComboBox cbxCineplex,cbxCiti,cbxCinema;
+    private Film detailFilm;
+    private String selectedDate;
+    private int locationDate;
+    public static String strShowTime = "";
+    public static List<ShowTimeCinema> listShowTime;
+    public static JPanel pnl;
     public void setScreen(JPanel pnlItem,JLabel lblItem){
         lblItem.setForeground(Color.decode("#202020"));
         pnlItem.setBackground(Color.decode("#ffffff"));
@@ -83,7 +96,6 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         lblTrailerLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblIMDBLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblRottenTomatoesLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        lblReviewLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblExit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblBack.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -146,47 +158,80 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
                 listSortCinema.add(cinema);
             }
         }
-        SweetComboBox cbxCinema = new SweetComboBox("#202020","#FFFFFF",0,0,1172,30,listSortCinema); 
+        cbxCinema = new SweetComboBox("#202020","#FFFFFF",0,0,1172,30,listSortCinema); 
         pnlCbxCinema1.removeAll();
         pnlCbxCinema1.add(cbxCinema);
         
     }
-    public DetailFilmJPanel(String str) throws IOException {
-        initComponents();
-        setCursorAll();
-        setBanner("https://traffic-edge31.cdn.vncdn.io/cinema/img/81593612680059158-sfw4m2tOgQRzhF6VXxaXGfd1vX.jpg");
-        setDataComboboxCiti();
-        setDataComboboxCineplex();
-        setDataComboboxCinema();
-        Citi citi = (Citi) listCiti.get(0);
-        Cineplex cineplex = (Cineplex) listCineplex.get(0);
-        sortComboboxCinema(citi.getApiId(),cineplex.getId());
-      
-        cbxCiti.addItemListener(new ItemListener(){
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                Citi citi = (Citi) cbxCiti.getSelectedItem();
-                Cineplex cineplex = (Cineplex) cbxCineplex.getSelectedItem();
-                sortComboboxCinema(citi.getApiId(), cineplex.getId());
-            }
-        });
-       
-        cbxCineplex.addItemListener(new ItemListener(){
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                Citi citi = (Citi) cbxCiti.getSelectedItem();
-                Cineplex cineplex = (Cineplex) cbxCineplex.getSelectedItem();
-                sortComboboxCinema(citi.getApiId(), cineplex.getId());
-            }
-        });
+    public void setData(Film film){
+        lblFilmName.setText(film.getTitle());
+        lblFilmCategorys.setText(film.getApiGenreName());
+        txtAreaFilmContent.setText(film.getSynopsisEn());
+        String imdbValue = film.getApiImdb();
+        if(imdbValue.equals("null")){
+            lblIMDBValue.setText("---");
+        }else{
+            lblIMDBValue.setText(imdbValue);
+        }
+        String romatoesValue = film.getApiRottenTomatoes();
+        if(romatoesValue.equals("null")){
+            lblRottenTomatoesValue.setText("---");
+        }else{
+            lblRottenTomatoesValue.setText(romatoesValue);
+        }
+        String metacriticValue = film.getApiMetacritic();
+        if(metacriticValue.equals("null")){
+            lblMetacriticValue.setText("---");
+        }else{
+            lblMetacriticValue.setText(metacriticValue);
+        }
+        String director = film.getDirector();
+        if(director.equals("null")){
+            lblDirectorName.setText("");
+        }else{
+            lblDirectorName.setText(director);
+        }
+        lblActorsName.setText(film.getCasts());
+        lblTrailerLink.setText(film.getTrailerUrl());
+        lblIMDBLink.setText(film.getImdbLink());
+        lblRottenTomatoesLink.setText(film.getRottenTomatoesLink());
+        List<Review> listReview = film.getReviews();
+        for(int i=0;i<listReview.size();i++){
+            JPanel pnl = new JPanel();
+            pnl.add(new GUI.PanelReview(listReview.get(i)));
+            pnl.setBackground(Color.getColor("#202020"));
+            pnl.setMinimumSize(new Dimension(1320,80));
+            pnl.setSize(new Dimension(1320,80));
+            pnlListReview.setLayout(new GridLayout(listReview.size(), 1,5,0));
+            pnlListReview.add(pnl);
+        }
+    }
+    public String setShowTime(Film film){
+        //Idfilm?cineplex?idCinema?date
+        String idFilm = film.getApiFilmId();
+        Cineplex cineplex = (Cineplex) cbxCineplex.getSelectedItem();
+        String idCineplex = cineplex.getId();
+        Cinema cinema = (Cinema) cbxCinema.getSelectedItem();
+        String idCinema = cinema.getApiCinemaId();
+        return idFilm+"?"+idCineplex+"?"+idCinema+"?"+selectedDate;
+        //ClientThread.message = idFilm+""+idCineplex+""+idCinema+""+selectedDate;
+        //ClientThread.message = idFilm+""+idCineplex+""+idCinema+"?";
+    }
+    public void setDateFormarYYYYMMDD(){
+        dayWeekFormatYYYYMMDD = new ArrayList<String>();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String today = dateFormat.format(date);
+        dayWeekFormatYYYYMMDD.add(today);
+        Calendar cal = Calendar.getInstance();
         
-        lblFilmName.setText(str);
-       
-        
-        pnlListDateSchedule.setLayout(new GridLayout(0,1,0,10));
-        pnlListDateSchedule.add(new PanelListScheduleMovie());
-        
-        
+        for(int i=1;i<7;i++){
+            cal.add(Calendar.DATE, 1);
+            Date todate = cal.getTime();  
+            dayWeekFormatYYYYMMDD.add(dateFormat.format(todate));
+        }
+    }
+    public void setLableDate(){
         dayWeek = new ArrayList<String>();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM");
         Date date = new Date();
@@ -208,7 +253,51 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
             labels[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             panels[i].setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff"),1));
         }
+        setDateFormarYYYYMMDD();
+        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate1.getText()));
         setScreen(pnlDate1, lblDate1);
+    }
+    
+    public DetailFilmJPanel(Film detailFilm) throws IOException, InterruptedException {
+        initComponents();
+        pnl = pnlListDateSchedule;
+        ClientThread.message="";
+        this.detailFilm = detailFilm;
+        
+        setCursorAll();
+        setBanner(detailFilm.getGraphicUrl());
+        setDataComboboxCiti();
+        setDataComboboxCineplex();
+        setDataComboboxCinema();
+        setLableDate();
+        Citi citi = (Citi) listCiti.get(0);
+        Cineplex cineplex = (Cineplex) listCineplex.get(0);
+        sortComboboxCinema(citi.getApiId(),cineplex.getId());
+        setData(detailFilm);
+        cbxCiti.addItemListener(new ItemListener(){
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                Citi citi = (Citi) cbxCiti.getSelectedItem();
+                Cineplex cineplex = (Cineplex) cbxCineplex.getSelectedItem();
+                sortComboboxCinema(citi.getApiId(), cineplex.getId());
+            }
+        });
+       
+        cbxCineplex.addItemListener(new ItemListener(){
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                Citi citi = (Citi) cbxCiti.getSelectedItem();
+                Cineplex cineplex = (Cineplex) cbxCineplex.getSelectedItem();
+                sortComboboxCinema(citi.getApiId(), cineplex.getId());
+            }
+        });
+        JLabel lblFirst = new JLabel("Nhấn tìm kiếm để lịch chiếu phim");
+        lblFirst.setForeground(Color.decode("#f1f1f1"));
+        lblFirst.setFont(new Font("SansSerif", Font.PLAIN, 24));
+        lblFirst.setHorizontalAlignment(JLabel.CENTER);
+        pnlListDateSchedule.setLayout(new BorderLayout());
+        pnlListDateSchedule.add(lblFirst);
+        
     }
 
     /**
@@ -278,9 +367,8 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         pnlSearch = new javax.swing.JPanel();
         lblSearch = new javax.swing.JLabel();
         pnlFilmReview = new javax.swing.JPanel();
-        lblReviewLink = new javax.swing.JLabel();
-        lblReview = new javax.swing.JLabel();
-        lblReviewTitle = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        pnlListReview = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(32, 32, 32));
 
@@ -503,6 +591,11 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         lblIMDBLink.setFont(new java.awt.Font("SansSerif", 2, 14)); // NOI18N
         lblIMDBLink.setForeground(new java.awt.Color(0, 153, 255));
         lblIMDBLink.setText("https://ww.yan.vn/review-phim-muoi-loi-nguyen-tro-lai-hoi-3-be-cua-khet-let-chi-pu-hong-anh-toa-sang-3140109.html");
+        lblIMDBLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblIMDBLinkMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlFilmIMDBLayout = new javax.swing.GroupLayout(pnlFilmIMDB);
         pnlFilmIMDB.setLayout(pnlFilmIMDBLayout);
@@ -533,6 +626,11 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         lblRottenTomatoesLink.setFont(new java.awt.Font("SansSerif", 2, 14)); // NOI18N
         lblRottenTomatoesLink.setForeground(new java.awt.Color(0, 153, 255));
         lblRottenTomatoesLink.setText("https://ww.yan.vn/review-phim-muoi-loi-nguyen-tro-lai-hoi-3-be-cua-khet-let-chi-pu-hong-anh-toa-sang-3140109.html");
+        lblRottenTomatoesLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRottenTomatoesLinkMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlFilmRottenTomatoesLayout = new javax.swing.GroupLayout(pnlFilmRottenTomatoes);
         pnlFilmRottenTomatoes.setLayout(pnlFilmRottenTomatoesLayout);
@@ -938,7 +1036,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         );
         pnlListDateScheduleLayout.setVerticalGroup(
             pnlListDateScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 375, Short.MAX_VALUE)
         );
 
         pnlCbxCinema1.setBackground(new java.awt.Color(32, 32, 32));
@@ -970,6 +1068,9 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         lblSearch.setMinimumSize(new java.awt.Dimension(120, 40));
         lblSearch.setPreferredSize(new java.awt.Dimension(120, 40));
         lblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSearchMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblSearchMousePressed(evt);
             }
@@ -1071,23 +1172,28 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                 .addGap(87, 87, 87))
         );
 
         pnlFilmReview.setBackground(new java.awt.Color(32, 32, 32));
 
-        lblReviewLink.setFont(new java.awt.Font("SansSerif", 2, 14)); // NOI18N
-        lblReviewLink.setForeground(new java.awt.Color(0, 153, 255));
-        lblReviewLink.setText("https://ww.yan.vn/review-phim-muoi-loi-nguyen-tro-lai-hoi-3-be-cua-khet-let-chi-pu-hong-anh-toa-sang-3140109.html");
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Review");
 
-        lblReview.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        lblReview.setForeground(new java.awt.Color(255, 255, 255));
-        lblReview.setText("Review");
+        pnlListReview.setBackground(new java.awt.Color(32, 32, 32));
 
-        lblReviewTitle.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        lblReviewTitle.setForeground(new java.awt.Color(240, 240, 240));
-        lblReviewTitle.setText("Review phim Mười - Lời Nguyền Trở Lại: Hồi 3 bẻ cua khét lẹt, Chi Pu - Hồng Ánh tỏa sáng");
+        javax.swing.GroupLayout pnlListReviewLayout = new javax.swing.GroupLayout(pnlListReview);
+        pnlListReview.setLayout(pnlListReviewLayout);
+        pnlListReviewLayout.setHorizontalGroup(
+            pnlListReviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlListReviewLayout.setVerticalGroup(
+            pnlListReviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout pnlFilmReviewLayout = new javax.swing.GroupLayout(pnlFilmReview);
         pnlFilmReview.setLayout(pnlFilmReviewLayout);
@@ -1096,43 +1202,40 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
             .addGroup(pnlFilmReviewLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlFilmReviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblReview, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblReviewTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblReviewLink, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1361, Short.MAX_VALUE)
+                    .addComponent(pnlListReview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnlFilmReviewLayout.setVerticalGroup(
             pnlFilmReviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFilmReviewLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblReview, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblReviewTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblReviewLink)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlListReview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnlGlobal, javax.swing.GroupLayout.PREFERRED_SIZE, 1410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlFilmReview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlGlobal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1410, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlFilmReview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlGlobal, javax.swing.GroupLayout.DEFAULT_SIZE, 2031, Short.MAX_VALUE)
+                .addComponent(pnlGlobal, javax.swing.GroupLayout.DEFAULT_SIZE, 1986, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlFilmReview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlFilmReview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1152,36 +1255,50 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private void lblDate1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate1MouseClicked
         setDefault();
         setScreen(pnlDate1, lblDate1);
+        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate1.getText()));
+        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate1MouseClicked
 
     private void lblDate4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate4MouseClicked
         setDefault();
         setScreen(pnlDate4, lblDate4);
+        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate4.getText()));
+        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate4MouseClicked
 
     private void lblDate5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate5MouseClicked
         setDefault();
         setScreen(pnlDate5, lblDate5);
+        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate5.getText()));
+        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate5MouseClicked
 
     private void lblDate6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate6MouseClicked
         setDefault();
         setScreen(pnlDate6, lblDate6);
+        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate6.getText()));
+        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate6MouseClicked
 
     private void lblDate7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate7MouseClicked
         setDefault();
         setScreen(pnlDate7, lblDate7);
+        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate7.getText()));
+        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate7MouseClicked
 
     private void lblDate2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate2MouseClicked
         setDefault();
         setScreen(pnlDate2, lblDate2);
+        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate2.getText()));
+        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate2MouseClicked
 
     private void lblDate3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate3MouseClicked
         setDefault();
         setScreen(pnlDate3, lblDate3);
+        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate3.getText()));
+        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate3MouseClicked
 
     private void lblSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMousePressed
@@ -1194,7 +1311,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         if (Desktop.isDesktopSupported()) {
                 Desktop desktop = Desktop.getDesktop();
                 try {
-                    URI uri = new URI("https://google.com");
+                    URI uri = new URI(detailFilm.getTrailerUrl());
                     desktop.browse(uri);
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -1204,8 +1321,42 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_lblTrailerLinkMouseClicked
 
+    private void lblIMDBLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIMDBLinkMouseClicked
+        if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                try {
+                    URI uri = new URI(detailFilm.getImdbLink());
+                    desktop.browse(uri);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+        }
+    }//GEN-LAST:event_lblIMDBLinkMouseClicked
+
+    private void lblRottenTomatoesLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRottenTomatoesLinkMouseClicked
+        if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                try {
+                    URI uri = new URI(detailFilm.getRottenTomatoesLink());
+                    desktop.browse(uri);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+        }
+    }//GEN-LAST:event_lblRottenTomatoesLinkMouseClicked
+
+    private void lblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMouseClicked
+        ClientThread.message = setShowTime(detailFilm);
+        
+    }//GEN-LAST:event_lblSearchMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblActorsName;
     private javax.swing.JLabel lblArea;
@@ -1231,9 +1382,6 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblIMDBValue;
     private javax.swing.JLabel lblMetacriticText;
     private javax.swing.JLabel lblMetacriticValue;
-    private javax.swing.JLabel lblReview;
-    private javax.swing.JLabel lblReviewLink;
-    private javax.swing.JLabel lblReviewTitle;
     private javax.swing.JLabel lblRottenTomatoes;
     private javax.swing.JLabel lblRottenTomatoesLink;
     private javax.swing.JLabel lblRottenTomatoesText;
@@ -1265,6 +1413,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel pnlGlobal;
     private javax.swing.JPanel pnlListDate;
     private javax.swing.JPanel pnlListDateSchedule;
+    private javax.swing.JPanel pnlListReview;
     private javax.swing.JPanel pnlSearch;
     private javax.swing.JTextArea txtAreaFilmContent;
     // End of variables declaration//GEN-END:variables

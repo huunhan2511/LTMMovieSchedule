@@ -5,6 +5,7 @@
  */
 package ltmmovieschedule;
 
+import Socket.client;
 import java.io.IOException;
 
 /**
@@ -17,6 +18,8 @@ public class LTMMovieSchedule {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
+        client client = new client();
+        client.createClient();
         new ltmmovieschedule.MovieSchedule().setVisible(true);
     }
     

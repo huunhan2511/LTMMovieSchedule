@@ -18,9 +18,10 @@ public class PanelHourSchedule extends javax.swing.JPanel {
     /**
      * Creates new form pnlHourSchedule
      */
-    public PanelHourSchedule() {
+    public PanelHourSchedule(String time) {
         initComponents();
         setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff")));
+        lblHourSchedule.setText(time);
         lblHourSchedule.setHorizontalAlignment(SwingConstants.CENTER);
         
     }
