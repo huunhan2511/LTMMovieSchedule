@@ -69,8 +69,6 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private Film detailFilm;
     private String selectedDate;
     private int locationDate;
-    public static String strShowTime = "";
-    public static List<ShowTimeCinema> listShowTime;
     public static JPanel pnl;
     public void setScreen(JPanel pnlItem,JLabel lblItem){
         lblItem.setForeground(Color.decode("#202020"));

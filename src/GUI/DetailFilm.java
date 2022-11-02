@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ltm.filmdetail;
+package GUI;
 
 import javax.swing.ImageIcon;
 
