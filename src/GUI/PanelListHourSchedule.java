@@ -23,7 +23,7 @@ public class PanelListHourSchedule extends javax.swing.JPanel {
      */
     public PanelListHourSchedule(ShowTimeCinema showTime) {
         initComponents();
-        pnlListHourSchedule.setLayout(new GridLayout(0,6,10,10));
+        pnlListHourSchedule.setLayout(new GridLayout(0,7,10,10));
         lblCategory.setText(showTime.getFilmType()+" | "+showTime.getCaptionType());
         List<String> showTimes = showTime.getShowTimes();
         

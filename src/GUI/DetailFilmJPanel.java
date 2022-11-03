@@ -83,12 +83,25 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         }
     }
     public void setBanner(String link) throws MalformedURLException, IOException{
-        URL url = new URL(link);
-        BufferedImage c = ImageIO.read(url);
-        ImageIcon image = new ImageIcon(c);
-        Image fixImage = image.getImage().getScaledInstance(1315,470,java.awt.Image.SCALE_SMOOTH);
-        image = new ImageIcon(fixImage);
-        lblBanner.setIcon(image);
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(link);
+                    BufferedImage c = ImageIO.read(url);
+                    ImageIcon image = new ImageIcon(c);
+                    Image fixImage = image.getImage().getScaledInstance(1315,470,java.awt.Image.SCALE_SMOOTH);
+                    image = new ImageIcon(fixImage);
+                    lblBanner.setIcon(image);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(DetailFilmJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(DetailFilmJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+        thread.start();
+        
     }
     public void setCursorAll(){
         lblTrailerLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

@@ -37,12 +37,25 @@ public class PanelMovie extends javax.swing.JPanel {
         setData();
     }
     public void setData() throws MalformedURLException, IOException{
-        URL url = new URL(film.getGraphicUrl());
-        BufferedImage c = ImageIO.read(url);
-        ImageIcon image = new ImageIcon(c);
-        Image fixImage = image.getImage().getScaledInstance(200, 225, java.awt.Image.SCALE_SMOOTH);
-        image = new ImageIcon(fixImage);
-        lblImage.setIcon(image);
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(film.getGraphicUrl());
+                    BufferedImage c = ImageIO.read(url);
+                    ImageIcon image = new ImageIcon(c);
+                    Image fixImage = image.getImage().getScaledInstance(200, 225, java.awt.Image.SCALE_SMOOTH);
+                    image = new ImageIcon(fixImage);
+                    lblImage.setIcon(image);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(PanelMovie.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(PanelMovie.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+        thread.start();
+        
         lblNameMovie.setText(film.getTitle());
         lblDescription.setText(film.getDuration() + " - " + film.getApiRatingFormat());
         

@@ -157,12 +157,10 @@ public class ClientThread extends Thread{
                     while(!message.equals("")){
                         outputStreamWriter = new OutputStreamWriter(cipherOutput);
                         bufferWriter = new BufferedWriter(outputStreamWriter);
-                        System.out.println("Testtttttttttttttttt");
                         System.out.println(message);
                         bufferWriter.write(message);
                         bufferWriter.newLine();
                         bufferWriter.flush();
-                        System.out.println("test");
                         
                         //objectInputStream = new ObjectInputStream(cipherInp);
                         if(message.contains("?")){
@@ -195,6 +193,7 @@ public class ClientThread extends Thread{
                         } else {
                             objectInputStream = new ObjectInputStream(cipherInp);
                             Film detailFilm = (Film) objectInputStream.readObject();
+                            
                             try {
                                 MovieSchedule.controller.setScreenDetailFilm(detailFilm);
                             } catch (IOException ex) {
@@ -207,7 +206,6 @@ public class ClientThread extends Thread{
                 //End vòng lặp gửi dữ liệu (tìm kiếm) cho server
             }catch(Exception e){
                 System.out.println("Lỗi");
-                e.printStackTrace();
                 System.out.println(e);
             }
         

@@ -18,6 +18,7 @@ public class Film implements Serializable {
     String ImdbLink;
     String RottenTomatoesLink;
     String GraphicUrl;
+    String BannerUrl;
     String SynopsisEn; //mo ta
     String TrailerUrl;
     String Casts;
@@ -26,9 +27,10 @@ public class Film implements Serializable {
 
     }
 
-    public Film(String title, String titleEn, String apiFilmId, String link, String duration, String apiRatingFormat, String apiGenreName, String apiImdb, String apiRottenTomatoes, String apiMetacritic, String graphicUrl, String synopsisEn, String trailerUrl, String casts) {
+    public Film(String title, String titleEn, String director, String apiFilmId, String link, String duration, String apiRatingFormat, String apiGenreName, String apiImdb, String apiRottenTomatoes, String apiMetacritic, String imdbLink, String rottenTomatoesLink, String graphicUrl, String bannerUrl, String synopsisEn, String trailerUrl, String casts, List<Review> reviews) {
         Title = title;
         TitleEn = titleEn;
+        Director = director;
         ApiFilmId = apiFilmId;
         Link = link;
         Duration = duration;
@@ -37,10 +39,14 @@ public class Film implements Serializable {
         ApiImdb = apiImdb;
         ApiRottenTomatoes = apiRottenTomatoes;
         ApiMetacritic = apiMetacritic;
+        ImdbLink = imdbLink;
+        RottenTomatoesLink = rottenTomatoesLink;
         GraphicUrl = graphicUrl;
+        BannerUrl = bannerUrl;
         SynopsisEn = synopsisEn;
         TrailerUrl = trailerUrl;
         Casts = casts;
+        Reviews = reviews;
     }
 
     public String getTitle() {
@@ -131,10 +137,6 @@ public class Film implements Serializable {
         ApiMetacritic = apiMetacritic;
     }
 
-    public String getGraphicUrl() {
-        return GraphicUrl;
-    }
-
     public String getImdbLink() {
         return ImdbLink;
     }
@@ -151,8 +153,20 @@ public class Film implements Serializable {
         RottenTomatoesLink = rottenTomatoesLink;
     }
 
+    public String getGraphicUrl() {
+        return GraphicUrl;
+    }
+
     public void setGraphicUrl(String graphicUrl) {
         GraphicUrl = graphicUrl;
+    }
+
+    public String getBannerUrl() {
+        return BannerUrl;
+    }
+
+    public void setBannerUrl(String bannerUrl) {
+        BannerUrl = bannerUrl;
     }
 
     public String getSynopsisEn() {
@@ -203,7 +217,8 @@ public class Film implements Serializable {
                 "ApiRottenTomatoes: " + this.ApiRottenTomatoes + "\n" +
                 "RottenTomatoesLink: " + this.RottenTomatoesLink + "\n" +
                 "ApiMetacritic: " + this.ApiMetacritic + "\n" +
-                "BannerUrl: " + this.GraphicUrl + "\n" +
+                "GraphicUrl: " + this.GraphicUrl + "\n" +
+                "BannerURL: " + this.BannerUrl + "\n" +
                 "SynopsisEn: " + this.SynopsisEn + "\n" +
                 "TrailerUrl: " + this.TrailerUrl + "\n" +
                 "Review: " + this.Reviews + "\n" +
