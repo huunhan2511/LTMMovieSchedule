@@ -49,7 +49,7 @@ import ltmmovieschedule.MovieSchedule;
  */
 public class ClientThread extends Thread{
     private List<Film> listFilm;
-    protected Socket socket;
+    public static Socket socket;
     public static String message = "";
 
     public List<Film> getListFilm() {
@@ -154,13 +154,18 @@ public class ClientThread extends Thread{
                     
                     
                     while(!message.equals("")){
+                        
                         outputStreamWriter = new OutputStreamWriter(cipherOutput);
                         bufferWriter = new BufferedWriter(outputStreamWriter);
                         System.out.println(message);
                         bufferWriter.write(message);
                         bufferWriter.newLine();
                         bufferWriter.flush();
-                        
+                        if(message.equals("close")){
+                            socket.close();
+                            close = true;
+                            break;
+                        }
                         if(message.contains("?")){
                             objectInputStream = new ObjectInputStream(cipherInp);
                             List<ShowTimeCinema> listShowTime = (List<ShowTimeCinema>) objectInputStream.readObject();

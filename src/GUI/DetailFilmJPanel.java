@@ -1260,7 +1260,9 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblBackMouseClicked
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
-        System.exit(0);
+            ClientThread.message = "close";
+            System.exit(0);
+        
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void lblDate1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate1MouseClicked

@@ -6,6 +6,7 @@
 package GUI;
 
 import Models.Film;
+import Socket.ClientThread;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -13,6 +14,8 @@ import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -667,7 +670,8 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblDate3MouseClicked
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
-       System.exit(0);
+            ClientThread.message = "close";
+            System.exit(0);
     }//GEN-LAST:event_lblExitMouseClicked
 
 
