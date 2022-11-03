@@ -152,7 +152,6 @@ public class ClientThread extends Thread{
                     cipherOut.init(Cipher.ENCRYPT_MODE, key, IV);
                     cipherOutput = new CipherOutputStream(out, cipherOut);
                     
-                    //objectOutputStream = new ObjectOutputStream(cipherOutput);
                     
                     while(!message.equals("")){
                         outputStreamWriter = new OutputStreamWriter(cipherOutput);
@@ -162,7 +161,6 @@ public class ClientThread extends Thread{
                         bufferWriter.newLine();
                         bufferWriter.flush();
                         
-                        //objectInputStream = new ObjectInputStream(cipherInp);
                         if(message.contains("?")){
                             objectInputStream = new ObjectInputStream(cipherInp);
                             List<ShowTimeCinema> listShowTime = (List<ShowTimeCinema>) objectInputStream.readObject();
@@ -187,8 +185,6 @@ public class ClientThread extends Thread{
                                 DetailFilmJPanel.pnl.revalidate();
                                 DetailFilmJPanel.pnl.repaint();
                             }
-                            
-                            System.out.println(listShowTime);
                             message = "";
                         } else {
                             objectInputStream = new ObjectInputStream(cipherInp);

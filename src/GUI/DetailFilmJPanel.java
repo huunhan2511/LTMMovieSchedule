@@ -276,7 +276,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         this.detailFilm = detailFilm;
         
         setCursorAll();
-        setBanner(detailFilm.getGraphicUrl());
+        setBanner(detailFilm.getBannerUrl());
         setDataComboboxCiti();
         setDataComboboxCineplex();
         setDataComboboxCinema();

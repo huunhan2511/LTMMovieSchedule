@@ -5,13 +5,10 @@
         <group>
             <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/Socket/client.java</file>
             <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/ltmmovieschedule/LTMMovieSchedule.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/PanelHourSchedule.java</file>
             <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/Socket/ClientThread.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/PanelListHourSchedule.java</file>
+            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/controller/changeScreenController.java</file>
             <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/PanelMovie.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/MovieScheduleJPanel.java</file>
             <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/DetailFilmJPanel.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/DetailFilm.java</file>
             <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/PanelReview.java</file>
         </group>
     </open-files>

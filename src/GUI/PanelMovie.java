@@ -48,9 +48,9 @@ public class PanelMovie extends javax.swing.JPanel {
                     image = new ImageIcon(fixImage);
                     lblImage.setIcon(image);
                 } catch (MalformedURLException ex) {
-                    Logger.getLogger(PanelMovie.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex.getMessage());
                 } catch (IOException ex) {
-                    Logger.getLogger(PanelMovie.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex.getMessage());
                 }
             }
         };
