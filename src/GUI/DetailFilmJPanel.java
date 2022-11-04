@@ -134,9 +134,9 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         pnlCbxCiti.add(cbxCiti);
     }
     public void setDataComboboxCineplex() throws FileNotFoundException, IOException{
-        String urlCiti = "\\src\\Data\\cineplex.txt";
+        String urlCineplex = "\\src\\Data\\cineplex.txt";
         String currentDirectory = System.getProperty("user.dir");
-        String file = currentDirectory+urlCiti;
+        String file = currentDirectory+urlCineplex;
         BufferedReader br = new BufferedReader(new FileReader(file));
         String st;
         listCineplex = new ArrayList<>();
@@ -151,9 +151,9 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         pnlCbxTheater.add(cbxCineplex);
     }
     public void setDataComboboxCinema() throws FileNotFoundException, IOException{
-        String urlCiti = "\\src\\Data\\cinema.txt";
+        String urlCinema = "\\src\\Data\\cinema.txt";
         String currentDirectory = System.getProperty("user.dir");
-        String file = currentDirectory+urlCiti;
+        String file = currentDirectory+urlCinema;
         BufferedReader br = new BufferedReader(new FileReader(file));
         String st;
         listCinema = new ArrayList<>();
