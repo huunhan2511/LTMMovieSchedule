@@ -19,14 +19,16 @@ import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -45,6 +47,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -69,7 +73,8 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     private Film detailFilm;
     private String selectedDate;
     private int locationDate;
-    public static JPanel pnl;
+    public static JPanel pnlSchedule;
+    public static Boolean waiting = false;
     public void setScreen(JPanel pnlItem,JLabel lblItem){
         lblItem.setForeground(Color.decode("#202020"));
         pnlItem.setBackground(Color.decode("#ffffff"));
@@ -225,8 +230,6 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         Cinema cinema = (Cinema) cbxCinema.getSelectedItem();
         String idCinema = cinema.getApiCinemaId();
         return idFilm+"?"+idCineplex+"?"+idCinema+"?"+selectedDate;
-        //ClientThread.message = idFilm+""+idCineplex+""+idCinema+""+selectedDate;
-        //ClientThread.message = idFilm+""+idCineplex+""+idCinema+"?";
     }
     public void setDateFormarYYYYMMDD(){
         dayWeekFormatYYYYMMDD = new ArrayList<String>();
@@ -271,7 +274,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     
     public DetailFilmJPanel(Film detailFilm) throws IOException, InterruptedException {
         initComponents();
-        pnl = pnlListDateSchedule;
+        pnlSchedule = pnlListDateSchedule;
         ClientThread.message="";
         this.detailFilm = detailFilm;
         
@@ -302,7 +305,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
                 sortComboboxCinema(citi.getApiId(), cineplex.getId());
             }
         });
-        JLabel lblFirst = new JLabel("Nhấn tìm kiếm để lịch chiếu phim");
+        JLabel lblFirst = new JLabel("Nhấn tìm kiếm tìm lịch chiếu phim");
         lblFirst.setForeground(Color.decode("#f1f1f1"));
         lblFirst.setFont(new Font("SansSerif", Font.PLAIN, 24));
         lblFirst.setHorizontalAlignment(JLabel.CENTER);
@@ -1251,14 +1254,6 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackMouseClicked
-        try {
-            MovieSchedule.controller.setScreenMovieSchedule();
-        } catch (IOException ex) {
-            Logger.getLogger(DetailFilmJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_lblBackMouseClicked
-
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
             ClientThread.message = "close";
             System.exit(0);
@@ -1269,49 +1264,42 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         setDefault();
         setScreen(pnlDate1, lblDate1);
         selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate1.getText()));
-        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate1MouseClicked
 
     private void lblDate4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate4MouseClicked
         setDefault();
         setScreen(pnlDate4, lblDate4);
         selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate4.getText()));
-        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate4MouseClicked
 
     private void lblDate5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate5MouseClicked
         setDefault();
         setScreen(pnlDate5, lblDate5);
         selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate5.getText()));
-        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate5MouseClicked
 
     private void lblDate6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate6MouseClicked
         setDefault();
         setScreen(pnlDate6, lblDate6);
         selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate6.getText()));
-        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate6MouseClicked
 
     private void lblDate7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate7MouseClicked
         setDefault();
         setScreen(pnlDate7, lblDate7);
         selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate7.getText()));
-        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate7MouseClicked
 
     private void lblDate2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate2MouseClicked
         setDefault();
         setScreen(pnlDate2, lblDate2);
         selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate2.getText()));
-        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate2MouseClicked
 
     private void lblDate3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate3MouseClicked
         setDefault();
         setScreen(pnlDate3, lblDate3);
         selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate3.getText()));
-        System.out.println(selectedDate);
     }//GEN-LAST:event_lblDate3MouseClicked
 
     private void lblSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMousePressed
@@ -1363,9 +1351,30 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblRottenTomatoesLinkMouseClicked
 
     private void lblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMouseClicked
-        ClientThread.message = setShowTime(detailFilm);
-        
+        if(!waiting){  
+            waiting = true;
+            pnlSchedule.removeAll();
+            JPanel FixedPanel = new JPanel(new GridBagLayout());
+            FixedPanel.setPreferredSize(pnlSchedule.getSize());
+            FixedPanel.setBackground(Color.decode("#202020"));
+            FixedPanel.removeAll();
+            JPanel pnl = new GUI.Custom.Loading();
+            pnl.setPreferredSize(new Dimension(200,200));
+            FixedPanel.add(pnl);
+            pnlSchedule.add(FixedPanel);
+            pnlSchedule.revalidate();
+            pnlSchedule.repaint();
+            ClientThread.message = setShowTime(detailFilm);
+        }
     }//GEN-LAST:event_lblSearchMouseClicked
+
+    private void lblBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackMouseClicked
+        try {
+            MovieSchedule.controller.setScreenMovieSchedule();
+        } catch (IOException ex) {
+            Logger.getLogger(DetailFilmJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lblBackMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

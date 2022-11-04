@@ -6,6 +6,7 @@
 package Socket;
 
 import GUI.DetailFilmJPanel;
+import GUI.LoadingJPanel;
 import GUI.MovieScheduleJPanel;
 import GUI.PanelListHourSchedule;
 import GUI.PanelListScheduleMovie;
@@ -40,6 +41,7 @@ import javax.crypto.CipherOutputStream;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import ltmmovieschedule.MovieSchedule;
 
@@ -168,39 +170,38 @@ public class ClientThread extends Thread{
                         }
                         if(message.contains("?")){
                             objectInputStream = new ObjectInputStream(cipherInp);
+                           
                             List<ShowTimeCinema> listShowTime = (List<ShowTimeCinema>) objectInputStream.readObject();
                             if(listShowTime.size()>=1){
-                                DetailFilmJPanel.pnl.removeAll();
-                                DetailFilmJPanel.pnl.setLayout(new BorderLayout());
+                                DetailFilmJPanel.pnlSchedule.removeAll();
+                                DetailFilmJPanel.pnlSchedule.setLayout(new BorderLayout());
                                 
                                 listShowTime.forEach(item->{
-                                    DetailFilmJPanel.pnl.add(new PanelListHourSchedule(item));
+                                    DetailFilmJPanel.pnlSchedule.add(new PanelListHourSchedule(item));
                                 });
                                 
-                                DetailFilmJPanel.pnl.revalidate();
-                                DetailFilmJPanel.pnl.repaint();
+                                DetailFilmJPanel.pnlSchedule.revalidate();
+                                DetailFilmJPanel.pnlSchedule.repaint();
                             }else{
-                                
-                                DetailFilmJPanel.pnl.removeAll();
-                                JLabel lblFirst = new JLabel("Không có lịch chiếu");
-                                lblFirst.setForeground(Color.decode("#f1f1f1"));
-                                lblFirst.setFont(new Font("SansSerif", Font.PLAIN, 24));
-                                lblFirst.setHorizontalAlignment(JLabel.CENTER);
-                                DetailFilmJPanel.pnl.add(lblFirst);
-                                DetailFilmJPanel.pnl.revalidate();
-                                DetailFilmJPanel.pnl.repaint();
+                                DetailFilmJPanel.pnlSchedule.removeAll();
+                                JLabel lblScheduel = new JLabel("Không có lịch chiếu");
+                                lblScheduel.setForeground(Color.decode("#f1f1f1"));
+                                lblScheduel.setFont(new Font("SansSerif", Font.PLAIN, 24));
+                                lblScheduel.setHorizontalAlignment(JLabel.CENTER);
+                                DetailFilmJPanel.pnlSchedule.add(lblScheduel);
+                                DetailFilmJPanel.pnlSchedule.revalidate();
+                                DetailFilmJPanel.pnlSchedule.repaint();
                             }
+                            DetailFilmJPanel.waiting = false;
                             message = "";
                         } else {
                             objectInputStream = new ObjectInputStream(cipherInp);
                             Film detailFilm = (Film) objectInputStream.readObject();
-                            
                             try {
                                 MovieSchedule.controller.setScreenDetailFilm(detailFilm);
                             } catch (IOException ex) {
                                 System.out.println(ex.getMessage());
                             }
-                            
                         }
                     }
                 }while(!close);

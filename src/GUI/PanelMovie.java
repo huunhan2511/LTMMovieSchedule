@@ -128,6 +128,7 @@ public class PanelMovie extends javax.swing.JPanel {
 //            Logger.getLogger(PanelMovie.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         ClientThread.message = film.getApiFilmId();
+        MovieSchedule.controller.setLoading();
     }//GEN-LAST:event_formMouseClicked
 
 

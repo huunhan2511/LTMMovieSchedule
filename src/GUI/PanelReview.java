@@ -7,6 +7,10 @@ package GUI;
 
 import Models.Review;
 import java.awt.Cursor;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  *
@@ -17,6 +21,7 @@ public class PanelReview extends javax.swing.JPanel {
     /**
      * Creates new form PanelReview
      */
+    private String linkReview = "";
     private Review review;
     public PanelReview(Review review) {
         this.review = review;
@@ -24,6 +29,7 @@ public class PanelReview extends javax.swing.JPanel {
         lblReviewLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblReviewTitle.setText(review.getTitle());
         lblReviewLink.setText(review.getURL());
+        this.linkReview = review.getURL();
     }
 
     /**
@@ -45,6 +51,11 @@ public class PanelReview extends javax.swing.JPanel {
         lblReviewLink.setFont(new java.awt.Font("SansSerif", 2, 14)); // NOI18N
         lblReviewLink.setForeground(new java.awt.Color(0, 153, 255));
         lblReviewLink.setText("https://ww.yan.vn/review-phim-muoi-loi-nguyen-tro-lai-hoi-3-be-cua-khet-let-chi-pu-hong-anh-toa-sang-3140109.html");
+        lblReviewLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblReviewLinkMouseClicked(evt);
+            }
+        });
 
         lblReviewTitle.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         lblReviewTitle.setForeground(new java.awt.Color(240, 240, 240));
@@ -73,6 +84,20 @@ public class PanelReview extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblReviewLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReviewLinkMouseClicked
+        if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                try {
+                    URI uri = new URI(linkReview);
+                    desktop.browse(uri);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+        }
+    }//GEN-LAST:event_lblReviewLinkMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

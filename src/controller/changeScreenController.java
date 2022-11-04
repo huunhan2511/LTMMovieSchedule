@@ -33,7 +33,7 @@ public class changeScreenController {
         this.pnlRoot = pnlRoot;
     }
     
-public void setScreenMovieSchedule() throws IOException{
+    public void setScreenMovieSchedule() throws IOException{
         
         this.selectedScreen = selectedScreen;
         pnlRoot.removeAll();
@@ -44,7 +44,15 @@ public void setScreenMovieSchedule() throws IOException{
        
         
     } 
-public void setScreenDetailFilm(Film detailFilm) throws IOException, InterruptedException{
+    public void setLoading(){
+        this.selectedScreen = selectedScreen;
+        pnlRoot.removeAll();
+        pnlRoot.setLayout(new BorderLayout());
+        pnlRoot.add(new GUI.LoadingJPanel());
+        pnlRoot.revalidate();
+        pnlRoot.repaint();
+    }
+    public void setScreenDetailFilm(Film detailFilm) throws IOException, InterruptedException{
         
         this.selectedScreen = selectedScreen;
         pnlRoot.removeAll();
@@ -53,7 +61,7 @@ public void setScreenDetailFilm(Film detailFilm) throws IOException, Interrupted
             
         pnlRoot.revalidate();
         pnlRoot.repaint();
-       
         
     } 
 }
+
