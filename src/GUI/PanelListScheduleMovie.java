@@ -25,11 +25,12 @@ public class PanelListScheduleMovie extends javax.swing.JPanel {
     /**
      * Creates new form PanelDateSchedule
      */
+    private String filmName,duration,graphicUrl,ratingFormat,filmId;
     public PanelListScheduleMovie(Film film) throws IOException {
         initComponents();
         pnlMovie.setLayout(new BorderLayout());
         JPanel pnl = new JPanel();
-        pnl.add(new GUI.PanelMovie(film));
+        pnl.add(new GUI.PanelMovie(film.getApiFilmId(),film.getTitle(),film.getDuration(),film.getGraphicUrl(),film.getApiRatingFormat()));
         pnl.setBackground(Color.decode("#202020"));
         pnl.setPreferredSize(new Dimension(200,300));
         pnlMovie.add(pnl);

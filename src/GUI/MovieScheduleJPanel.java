@@ -12,12 +12,18 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -46,7 +52,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         listFilm.forEach(item ->{
             try {
                 JPanel pnl = new JPanel();
-                pnl.add(new GUI.PanelMovie(item));
+                pnl.add(new GUI.PanelMovie(item.getApiFilmId(),item.getTitle(),item.getDuration(),item.getGraphicUrl(),item.getApiRatingFormat()));
                 pnl.setBackground(Color.getColor("#202020"));
                 pnl.setMinimumSize(new Dimension(200,300));
                 pnl.setSize(new Dimension(200,300));
@@ -57,53 +63,28 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             }
         });
         
-//       
-//        pnlListDateSchedule.setLayout(new GridLayout(0,1,0,10));
-//        for(int i=0;i<3;i++){
-//            pnlListDateSchedule.add(new PanelListScheduleMovie());
-//        }
-//        
-//        
-//        //combobox for schedule movie
-//        List<Object> area = new ArrayList<Object>();
-//        area.add(new Citi("1", "TPHCM"));
-//        area.add(new Citi("2", "Hà Nội"));
-//        
-//        SweetComboBox cbxArea = new SweetComboBox("#202020","#FFFFFF",0,0,1220,30,area);   
-//        pnlCbxArea.add(cbxArea);
-//        
-//        List<Object> theater = new ArrayList<Object>();
-//        theater.add(new Cineplex("1", "CGV"));
-//        theater.add(new Cineplex("2", "Lotte"));
-//        SweetComboBox cbxTheater = new SweetComboBox("#202020","#FFFFFF",0,0,1220,30,theater); 
-//        pnlCbxTheater.add(cbxTheater);
-////        String[] cinema = {"Rạp 1","Rạp 2"};
-////        SweetComboBox cbxCinema = new SweetComboBox("#202020","#FFFFFF",0,0,1220,30,cinema); 
-////        pnlCbxCinema.add(cbxCinema);
-//        
-//        
-//        dayWeek = new ArrayList<String>();
-//        DateFormat dateFormat = new SimpleDateFormat("dd/MM");
-//        Date date = new Date();
-//        String today = dateFormat.format(date);
-//        dayWeek.add(today);
-//        Calendar cal = Calendar.getInstance();
-//        
-//        for(int i=1;i<7;i++){
-//            cal.add(Calendar.DATE, 1);
-//            Date todate = cal.getTime();  
-//            dayWeek.add(dateFormat.format(todate));
-//        }
-//        
-//        JLabel[] labels = {lblDate1,lblDate2,lblDate3,lblDate4,lblDate5,lblDate6,lblDate7};
-//        JPanel[] panels = {pnlDate1,pnlDate2,pnlDate3,pnlDate4,pnlDate5,pnlDate6,pnlDate7};
-//        for(int i=0;i<dayWeek.size();i++){
-//            labels[i].setText(dayWeek.get(i));
-//            labels[i].setHorizontalAlignment(SwingConstants.CENTER);
-//            labels[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-//            panels[i].setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff"),1));
-//        }
-//        setScreen(pnlDate1, lblDate1);
+        dayWeek = new ArrayList<String>();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM");
+        Date date = new Date();
+        String today = dateFormat.format(date);
+        dayWeek.add(today);
+        Calendar cal = Calendar.getInstance();
+        
+        for(int i=1;i<7;i++){
+            cal.add(Calendar.DATE, 1);
+            Date todate = cal.getTime();  
+            dayWeek.add(dateFormat.format(todate));
+        }
+        
+        JLabel[] labels = {lblDate1,lblDate2,lblDate3,lblDate4,lblDate5,lblDate6,lblDate7};
+        JPanel[] panels = {pnlDate1,pnlDate2,pnlDate3,pnlDate4,pnlDate5,pnlDate6,pnlDate7};
+        for(int i=0;i<dayWeek.size();i++){
+            labels[i].setText(dayWeek.get(i));
+            labels[i].setHorizontalAlignment(SwingConstants.CENTER);
+            labels[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            panels[i].setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff"),1));
+        }
+        setScreen(pnlDate1, lblDate1);
     }
     public void setScreen(JPanel pnlItem,JLabel lblItem){
         lblItem.setForeground(Color.decode("#202020"));
