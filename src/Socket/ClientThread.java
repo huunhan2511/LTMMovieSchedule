@@ -174,9 +174,10 @@ public class ClientThread extends Thread{
                             List<ShowTimeCinema> listShowTime = (List<ShowTimeCinema>) objectInputStream.readObject();
                             if(listShowTime.size()>=1){
                                 DetailFilmJPanel.pnlSchedule.removeAll();
-                                DetailFilmJPanel.pnlSchedule.setLayout(new BorderLayout());
+                                DetailFilmJPanel.pnlSchedule.setLayout(new GridLayout(0, 1, 5, 5));
                                 
                                 listShowTime.forEach(item->{
+                                    System.out.println(item);
                                     DetailFilmJPanel.pnlSchedule.add(new PanelListHourSchedule(item));
                                 });
                                 

@@ -3,16 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/Socket/client.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/LoadingJPanel.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/Socket/ClientThread.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/controller/changeScreenController.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/PanelMovie.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/MovieScheduleJPanel.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/Custom/Loading.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/DetailFilmJPanel.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/GUI/PanelReview.java</file>
-            <file>file:/C:/Users/huunh/OneDrive/Documents/NetBeansProjects/LTMMovieSchedule/src/ltmmovieschedule/MovieSchedule.java</file>
+            <file>file:/D:/Github/LTMMovieSchedule/src/Socket/ClientThread.java</file>
+            <file>file:/D:/Github/LTMMovieSchedule/src/GUI/DetailFilmJPanel.java</file>
         </group>
     </open-files>
 </project-private>
