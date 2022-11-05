@@ -203,13 +203,21 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         }
     }
     public String setShowTime(Film film){
+        String messageShowTime;
         //Idfilm?cineplex?idCinema?date
         String idFilm = film.getApiFilmId();
         Cineplex cineplex = (Cineplex) cbxCineplex.getSelectedItem();
         String idCineplex = cineplex.getId();
         Cinema cinema = (Cinema) cbxCinema.getSelectedItem();
-        String idCinema = cinema.getApiCinemaId();
-        return idFilm+"?"+idCineplex+"?"+idCinema+"?"+selectedDate;
+        String idCinema;
+        if(cinema!=null){
+           idCinema = cinema.getApiCinemaId();
+           messageShowTime = idFilm+"?"+idCineplex+"?"+idCinema+"?"+selectedDate;
+        }else{
+           idCinema = "";
+           messageShowTime = "false";
+        }
+        return messageShowTime;
     }
     public void setDateFormarYYYYMMDD(){
         dayWeekFormatYYYYMMDD = new ArrayList<String>();
@@ -1332,19 +1340,32 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
 
     private void lblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMouseClicked
         if(!waiting){  
-            waiting = true;
-            pnlSchedule.removeAll();
-            JPanel FixedPanel = new JPanel(new GridBagLayout());
-            FixedPanel.setPreferredSize(pnlSchedule.getSize());
-            FixedPanel.setBackground(Color.decode("#202020"));
-            FixedPanel.removeAll();
-            JPanel pnl = new GUI.Custom.Loading();
-            pnl.setPreferredSize(new Dimension(200,200));
-            FixedPanel.add(pnl);
-            pnlSchedule.add(FixedPanel);
-            pnlSchedule.revalidate();
-            pnlSchedule.repaint();
-            ClientThread.message = setShowTime(detailFilm);
+            String messageShowTime = setShowTime(detailFilm);
+            if(!messageShowTime.equals("false")){
+                waiting = true;
+                pnlSchedule.removeAll();
+                JPanel FixedPanel = new JPanel(new GridBagLayout());
+                FixedPanel.setPreferredSize(pnlSchedule.getSize());
+                FixedPanel.setBackground(Color.decode("#202020"));
+                FixedPanel.removeAll();
+                JPanel pnl = new GUI.Custom.Loading();
+                pnl.setPreferredSize(new Dimension(200,200));
+                FixedPanel.add(pnl);
+                pnlSchedule.add(FixedPanel);
+                pnlSchedule.revalidate();
+                pnlSchedule.repaint();
+                ClientThread.message = messageShowTime;
+            }else{
+                pnlSchedule.removeAll();
+                JLabel lblScheduel = new JLabel("Vui lòng chọn rạp cần tìm kiếm");
+                lblScheduel.setForeground(Color.decode("#f1f1f1"));
+                lblScheduel.setFont(new Font("SansSerif", Font.PLAIN, 24));
+                lblScheduel.setHorizontalAlignment(JLabel.CENTER);
+                pnlSchedule.add(lblScheduel);
+                pnlSchedule.revalidate();
+                pnlSchedule.repaint();
+            }
+            
         }
     }//GEN-LAST:event_lblSearchMouseClicked
 
