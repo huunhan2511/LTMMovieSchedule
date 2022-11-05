@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Github/LTMMovieSchedule/src/Socket/ClientThread.java</file>
-            <file>file:/D:/Github/LTMMovieSchedule/src/GUI/DetailFilmJPanel.java</file>
+            <file>file:/H:/LTMMovie/LTMMovieSchedule/src/GUI/DetailFilmJPanel.java</file>
+            <file>file:/H:/LTMMovie/LTMMovieSchedule/src/ltmmovieschedule/MovieSchedule.java</file>
+            <file>file:/H:/LTMMovie/LTMMovieSchedule/src/GUI/MovieScheduleJPanel.java</file>
+            <file>file:/H:/LTMMovie/LTMMovieSchedule/src/Socket/client.java</file>
         </group>
     </open-files>
 </project-private>
