@@ -183,30 +183,10 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
         lblFilmName.setText(film.getTitle());
         lblFilmCategorys.setText(film.getApiGenreName());
         txtAreaFilmContent.setText(film.getSynopsisEn());
-        String imdbValue = film.getApiImdb();
-        if(imdbValue.equals("null")){
-            lblIMDBValue.setText("---");
-        }else{
-            lblIMDBValue.setText(imdbValue);
-        }
-        String romatoesValue = film.getApiRottenTomatoes();
-        if(romatoesValue.equals("null")){
-            lblRottenTomatoesValue.setText("---");
-        }else{
-            lblRottenTomatoesValue.setText(romatoesValue);
-        }
-        String metacriticValue = film.getApiMetacritic();
-        if(metacriticValue.equals("null")){
-            lblMetacriticValue.setText("---");
-        }else{
-            lblMetacriticValue.setText(metacriticValue);
-        }
-        String director = film.getDirector();
-        if(director.equals("null")){
-            lblDirectorName.setText("");
-        }else{
-            lblDirectorName.setText(director);
-        }
+	lblIMDBValue.setText(film.getApiImdb());
+        lblRottenTomatoesValue.setText(film.getApiRottenTomatoes());
+	lblMetacriticValue.setText(film.getApiMetacritic());
+	lblDirectorName.setText(film.getDirector());
         lblActorsName.setText(film.getCasts());
         lblTrailerLink.setText(film.getTrailerUrl());
         lblIMDBLink.setText(film.getImdbLink());
