@@ -195,7 +195,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         listFilm.forEach(item -> {
             try {
                 JPanel pnl = new JPanel();
-                pnl.add(new GUI.PanelMovie(item));
+                pnl.add(new GUI.PanelMovie(item.getApiFilmId(),item.getTitle(),item.getDuration(),item.getGraphicUrl(),item.getApiRatingFormat()));
                 pnl.setBackground(Color.getColor("#202020"));
                 pnl.setMinimumSize(new Dimension(200, 300));
                 pnl.setSize(new Dimension(200, 300));
@@ -236,6 +236,28 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         lblFirst.setHorizontalAlignment(JLabel.CENTER);
         pnlListDateSchedule.setLayout(new BorderLayout());
         pnlListDateSchedule.add(lblFirst);
+        dayWeek = new ArrayList<String>();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM");
+        Date date = new Date();
+        String today = dateFormat.format(date);
+        dayWeek.add(today);
+        Calendar cal = Calendar.getInstance();
+        
+        for(int i=1;i<7;i++){
+            cal.add(Calendar.DATE, 1);
+            Date todate = cal.getTime();  
+            dayWeek.add(dateFormat.format(todate));
+        }
+        
+        JLabel[] labels = {lblDate1,lblDate2,lblDate3,lblDate4,lblDate5,lblDate6,lblDate7};
+        JPanel[] panels = {pnlDate1,pnlDate2,pnlDate3,pnlDate4,pnlDate5,pnlDate6,pnlDate7};
+        for(int i=0;i<dayWeek.size();i++){
+            labels[i].setText(dayWeek.get(i));
+            labels[i].setHorizontalAlignment(SwingConstants.CENTER);
+            labels[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            panels[i].setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff"),1));
+        }
+        setScreen(pnlDate1, lblDate1);
     }
 
     public void setScreen(JPanel pnlItem, JLabel lblItem) {

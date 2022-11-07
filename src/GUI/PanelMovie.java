@@ -30,10 +30,14 @@ public class PanelMovie extends javax.swing.JPanel {
     /**
      * Creates new form PanelMovie
      */
-    private Film film;
-    public PanelMovie(Film film) throws IOException {
+    private String filmName,duration,graphicUrl,ratingFormat,filmId;
+    public PanelMovie(String filmId, String filmName, String duration, String graphicUrl, String ratingFormat) throws IOException {
         initComponents();
-        this.film = film;
+        this.filmId = filmId;
+        this.filmName = filmName;
+        this.duration = duration;
+        this.graphicUrl = graphicUrl;
+        this.ratingFormat = ratingFormat;
         setData();
     }
     public void setData() throws MalformedURLException, IOException{
@@ -41,23 +45,21 @@ public class PanelMovie extends javax.swing.JPanel {
             @Override
             public void run() {
                 try {
-                    URL url = new URL(film.getGraphicUrl());
+                    URL url = new URL(graphicUrl);
                     BufferedImage c = ImageIO.read(url);
                     ImageIcon image = new ImageIcon(c);
                     Image fixImage = image.getImage().getScaledInstance(200, 225, java.awt.Image.SCALE_SMOOTH);
                     image = new ImageIcon(fixImage);
                     lblImage.setIcon(image);
-                } catch (MalformedURLException ex) {
+                } catch (Exception ex) {
                     System.out.println(ex.getMessage());
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
-                }
+                } 
             }
         };
         thread.start();
         
-        lblNameMovie.setText(film.getTitle());
-        lblDescription.setText(film.getDuration() + " - " + film.getApiRatingFormat());
+        lblNameMovie.setText(filmName);
+        lblDescription.setText(duration + " - " + ratingFormat);
         
     }
     /**
@@ -127,7 +129,7 @@ public class PanelMovie extends javax.swing.JPanel {
 //        } catch (IOException ex) {
 //            Logger.getLogger(PanelMovie.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        ClientThread.message = film.getApiFilmId();
+        ClientThread.message = filmId;
         MovieSchedule.controller.setLoading();
     }//GEN-LAST:event_formMouseClicked
 
