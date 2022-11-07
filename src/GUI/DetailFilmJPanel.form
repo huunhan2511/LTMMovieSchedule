@@ -152,7 +152,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblCinema" min="-2" pref="33" max="-2" attributes="0"/>
-                              <Component id="pnlCbxCinema1" pref="42" max="32767" attributes="0"/>
+                              <Component id="pnlCbxCinema1" pref="44" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                       </Group>
@@ -162,7 +162,7 @@
                       </Group>
                   </Group>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Component id="pnlListDateSchedule" pref="356" max="32767" attributes="0"/>
+                  <Component id="pnlListDateSchedule" pref="363" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
               </Group>
           </Group>
