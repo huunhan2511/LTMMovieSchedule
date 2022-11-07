@@ -5,31 +5,25 @@
  */
 package GUI;
 
-import GUI.Custom.SweetComboBox;
-import Models.Cinema;
-import Models.Cineplex;
-import Models.Citi;
 import Models.Film;
 import Socket.ClientThread;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -40,159 +34,28 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
     /**
      * Creates new form MovieScheduleJPanel
      */
+    
     private int col = 6;
     private ArrayList<String> dayWeek;
-    private ArrayList<String> dayWeekFormatYYYYMMDD;
-    private List<Object> listCineplex, listCinema, listCiti;
+   
     private static List<Film> listFilm = new ArrayList<>();
-    private String selectedDate;
-    private SweetComboBox cbxCineplex, cbxCiti, cbxCinema;
-    public static Boolean waiting = false;
-    private Film detailFilm;
-    public static JPanel pnlSchedule;
-
-    public static void setListFilm(List<Film> listFilm) {
+    
+    public static void setListFilm(List<Film> listFilm){
         MovieScheduleJPanel.listFilm = listFilm;
     }
-
-    public void setDateFormatYYYYMMDD() {
-        dayWeekFormatYYYYMMDD = new ArrayList<String>();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-        String today = dateFormat.format(date);
-        dayWeekFormatYYYYMMDD.add(today);
-        Calendar cal = Calendar.getInstance();
-
-        for (int i = 1; i < 7; ++i) {
-            cal.add(Calendar.DATE, 1);
-            Date todate = cal.getTime();
-            dayWeekFormatYYYYMMDD.add(dateFormat.format(todate));
-        }
-    }
-
-    public void setLableDate() {
-        dayWeek = new ArrayList<String>();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM");
-        Date date = new Date();
-        String today = dateFormat.format(date);
-        dayWeek.add(today);
-        Calendar cal = Calendar.getInstance();
-
-        for (int i = 1; i < 7; i++) {
-            cal.add(Calendar.DATE, 1);
-            Date todate = cal.getTime();
-            dayWeek.add(dateFormat.format(todate));
-        }
-
-        JLabel[] labels = {lblDate1, lblDate2, lblDate3, lblDate4, lblDate5, lblDate6, lblDate7};
-        JPanel[] panels = {pnlDate1, pnlDate2, pnlDate3, pnlDate4, pnlDate5, pnlDate6, pnlDate7};
-        for (int i = 0; i < dayWeek.size(); i++) {
-            labels[i].setText(dayWeek.get(i));
-            labels[i].setHorizontalAlignment(SwingConstants.CENTER);
-            labels[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            panels[i].setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff"), 1));
-        }
-        setDateFormatYYYYMMDD();
-        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate1.getText()));
-        setScreen(pnlDate1, lblDate1);
-    }
-
-    public void setDataComboboxCiti() throws FileNotFoundException, IOException {
-        String urlCiti = "\\src\\Data\\citi.txt";
-        String currentDirectory = System.getProperty("user.dir");
-        String file = currentDirectory + urlCiti;
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String st;
-        listCiti = new ArrayList<>();
-        while ((st = br.readLine()) != null) {
-            String[] line = st.split(";");
-            if (line.length > 1) {
-                Citi citi = new Citi(line[0], line[1]);
-                listCiti.add(citi);
-            }
-        }
-        cbxCiti = new SweetComboBox("#202020", "#FFFFFF", 0, 0, 1172, 30, listCiti);
-        pnlCbxCiti.add(cbxCiti);
-    }
-
-    public void setDataComboboxCineplex() throws FileNotFoundException, IOException {
-        String urlCineplex = "\\src\\Data\\cineplex.txt";
-        String currentDirectory = System.getProperty("user.dir");
-        String file = currentDirectory + urlCineplex;
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String st;
-        listCineplex = new ArrayList<>();
-        while ((st = br.readLine()) != null) {
-            String[] line = st.split(";");
-            if (line.length > 1) {
-                Cineplex cineplex = new Cineplex(line[0], line[1]);
-                listCineplex.add(cineplex);
-            }
-        }
-        cbxCineplex = new SweetComboBox("#202020", "#FFFFFF", 0, 0, 1172, 30, listCineplex);
-        pnlCbxTheater.add(cbxCineplex);
-    }
-
-    public void setDataComboboxCinema() throws FileNotFoundException, IOException{
-        String urlCinema = "\\src\\Data\\cinema.txt";
-        String currentDirectory = System.getProperty("user.dir");
-        String file = currentDirectory+urlCinema;
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String st;
-        listCinema = new ArrayList<>();
-        while ((st = br.readLine()) != null) {
-            String[] line = st.split(";");
-            if(line.length>1) {
-                Cinema cinema = new Cinema(line[0],line[1],line[2],line[3]);
-                listCinema.add(cinema);
-            }
-        }
-    }
-    
-    public void sortComboboxCinema(String apiCityId, String cineplex) {
-        List<Object> listSortCinema = new ArrayList<>();
-        for (int i=0 ; i<listCinema.size() ; ++i) {
-            Cinema cinema = (Cinema) listCinema.get(i);
-            if (cinema.getApiCityId().equals(apiCityId) && cinema.getCineplex().equals(cineplex)) {
-                listSortCinema.add(cinema);
-            }
-        }
-        cbxCinema = new SweetComboBox("#202020","#FFFFFF",0,0,1172,30,listSortCinema); 
-        pnlCbxCinema.removeAll();
-        pnlCbxCinema.add(cbxCinema);
-    }
-    
-    public String setShowTime() {
-        //034;6;2022-11-04
-        //cinema;cineplex;date
-        String messageShowTime;
-        Cinema cinema = (Cinema) cbxCinema.getSelectedItem();
-        Cineplex cineplex = (Cineplex) cbxCineplex.getSelectedItem();
-        String idCinema;
-        String idCineplex = cineplex.getId();
-        if (cinema != null) {
-            idCinema = cinema.getApiCinemaId();
-            messageShowTime = idCinema + ";" + idCineplex + ";" + selectedDate;
-        } else {
-            idCinema = "";
-            messageShowTime = "false";
-        }
-        return messageShowTime;
-    }
-    
     public MovieScheduleJPanel() throws IOException {
         initComponents();
-        pnlListMovie.setLayout(new GridLayout(0, col, 10, 5));
+        pnlListMovie.setLayout(new GridLayout(0,col,10,5));
         lblExit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
+             
         // render list movie playing
-        listFilm.forEach(item -> {
+        listFilm.forEach(item ->{
             try {
                 JPanel pnl = new JPanel();
                 pnl.add(new GUI.PanelMovie(item));
                 pnl.setBackground(Color.getColor("#202020"));
-                pnl.setMinimumSize(new Dimension(200, 300));
-                pnl.setSize(new Dimension(200, 300));
+                pnl.setMinimumSize(new Dimension(200,300));
+                pnl.setSize(new Dimension(200,300));
                 pnl.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 pnlListMovie.add(pnl);
             } catch (IOException ex) {
@@ -200,37 +63,6 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             }
         });
         
-<<<<<<< HEAD
-        //setShowTime
-        setDataComboboxCiti();
-        setDataComboboxCineplex();
-        setDataComboboxCinema();
-        setLableDate();
-        Citi citi = (Citi) listCiti.get(0);
-        Cineplex cineplex = (Cineplex) listCineplex.get(0);
-        sortComboboxCinema(citi.getApiId(), cineplex.getId());
-        cbxCiti.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                Citi citi = (Citi) cbxCiti.getSelectedItem();
-                Cineplex cineplex = (Cineplex) cbxCineplex.getSelectedItem();
-                sortComboboxCinema(citi.getApiId(), cineplex.getId());
-            }
-        });
-        
-        cbxCineplex.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
-        
-        JLabel lblFirst = new JLabel("Nhấn tìm kiếm tìm lịch chiếu phim");
-        lblFirst.setForeground(Color.decode("#f1f1f1"));
-        lblFirst.setFont(new Font("SansSerif", Font.PLAIN, 24));
-        lblFirst.setHorizontalAlignment(JLabel.CENTER);
-        pnlListDateSchedule.setLayout(new BorderLayout());
-        pnlListDateSchedule.add(lblFirst);
         dayWeek = new ArrayList<String>();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM");
         Date date = new Date();
@@ -253,66 +85,15 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             panels[i].setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff"),1));
         }
         setScreen(pnlDate1, lblDate1);
-=======
-//       
-//        pnlListDateSchedule.setLayout(new GridLayout(0,1,0,10));
-//        for(int i=0;i<3;i++){
-//            pnlListDateSchedule.add(new PanelListScheduleMovie());
-//        }
-//        
-//        
-//        //combobox for schedule movie
-//        List<Object> area = new ArrayList<Object>();
-//        area.add(new Citi("1", "TPHCM"));
-//        area.add(new Citi("2", "Hà Nội"));
-//        
-//        SweetComboBox cbxArea = new SweetComboBox("#202020","#FFFFFF",0,0,1220,30,area);   
-//        pnlCbxArea.add(cbxArea);
-//        
-//        List<Object> theater = new ArrayList<Object>();
-//        theater.add(new Cineplex("1", "CGV"));
-//        theater.add(new Cineplex("2", "Lotte"));
-//        SweetComboBox cbxTheater = new SweetComboBox("#202020","#FFFFFF",0,0,1220,30,theater); 
-//        pnlCbxTheater.add(cbxTheater);
-////        String[] cinema = {"Rạp 1","Rạp 2"};
-////        SweetComboBox cbxCinema = new SweetComboBox("#202020","#FFFFFF",0,0,1220,30,cinema); 
-////        pnlCbxCinema.add(cbxCinema);
-//        
-//        
-//        dayWeek = new ArrayList<String>();
-//        DateFormat dateFormat = new SimpleDateFormat("dd/MM");
-//        Date date = new Date();
-//        String today = dateFormat.format(date);
-//        dayWeek.add(today);
-//        Calendar cal = Calendar.getInstance();
-//        
-//        for(int i=1;i<7;i++){
-//            cal.add(Calendar.DATE, 1);
-//            Date todate = cal.getTime();  
-//            dayWeek.add(dateFormat.format(todate));
-//        }
-//        
-//        JLabel[] labels = {lblDate1,lblDate2,lblDate3,lblDate4,lblDate5,lblDate6,lblDate7};
-//        JPanel[] panels = {pnlDate1,pnlDate2,pnlDate3,pnlDate4,pnlDate5,pnlDate6,pnlDate7};
-//        for(int i=0;i<dayWeek.size();i++){
-//            labels[i].setText(dayWeek.get(i));
-//            labels[i].setHorizontalAlignment(SwingConstants.CENTER);
-//            labels[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-//            panels[i].setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff"),1));
-//        }
-//        setScreen(pnlDate1, lblDate1);
->>>>>>> parent of 21be2a9 (Update panel movie)
     }
-
-    public void setScreen(JPanel pnlItem, JLabel lblItem) {
+    public void setScreen(JPanel pnlItem,JLabel lblItem){
         lblItem.setForeground(Color.decode("#202020"));
         pnlItem.setBackground(Color.decode("#ffffff"));
     }
-
-    public void setDefault() {
-        JLabel[] labels = {lblDate1, lblDate2, lblDate3, lblDate4, lblDate5, lblDate6, lblDate7};
-        JPanel[] panels = {pnlDate1, pnlDate2, pnlDate3, pnlDate4, pnlDate5, pnlDate6, pnlDate7};
-        for (int i = 0; i < labels.length; i++) {
+    public void setDefault(){
+        JLabel[] labels = {lblDate1,lblDate2,lblDate3,lblDate4,lblDate5,lblDate6,lblDate7};
+        JPanel[] panels = {pnlDate1,pnlDate2,pnlDate3,pnlDate4,pnlDate5,pnlDate6,pnlDate7};
+        for(int i=0;i<labels.length;i++){
             labels[i].setForeground(Color.decode("#ffffff"));
             panels[i].setBackground(Color.decode("#202020"));
         }
@@ -335,7 +116,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         pnlListScheduleMovie = new javax.swing.JPanel();
         lblScheduleMovie = new javax.swing.JLabel();
         lblArea = new javax.swing.JLabel();
-        pnlCbxCiti = new javax.swing.JPanel();
+        pnlCbxArea = new javax.swing.JPanel();
         pnlCbxTheater = new javax.swing.JPanel();
         lblTheater = new javax.swing.JLabel();
         lblCinema = new javax.swing.JLabel();
@@ -355,8 +136,6 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         lblDate2 = new javax.swing.JLabel();
         pnlDate3 = new javax.swing.JPanel();
         lblDate3 = new javax.swing.JLabel();
-        pnlSearch = new javax.swing.JPanel();
-        lblSearch = new javax.swing.JLabel();
         pnlListDateSchedule = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(32, 32, 32));
@@ -430,19 +209,19 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         lblArea.setForeground(new java.awt.Color(255, 255, 255));
         lblArea.setText("Địa điểm : ");
 
-        pnlCbxCiti.setBackground(new java.awt.Color(32, 32, 32));
-        pnlCbxCiti.setMaximumSize(new java.awt.Dimension(1225, 32767));
-        pnlCbxCiti.setPreferredSize(new java.awt.Dimension(1225, 50));
+        pnlCbxArea.setBackground(new java.awt.Color(32, 32, 32));
+        pnlCbxArea.setMaximumSize(new java.awt.Dimension(1225, 32767));
+        pnlCbxArea.setPreferredSize(new java.awt.Dimension(1225, 50));
 
-        javax.swing.GroupLayout pnlCbxCitiLayout = new javax.swing.GroupLayout(pnlCbxCiti);
-        pnlCbxCiti.setLayout(pnlCbxCitiLayout);
-        pnlCbxCitiLayout.setHorizontalGroup(
-            pnlCbxCitiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlCbxAreaLayout = new javax.swing.GroupLayout(pnlCbxArea);
+        pnlCbxArea.setLayout(pnlCbxAreaLayout);
+        pnlCbxAreaLayout.setHorizontalGroup(
+            pnlCbxAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        pnlCbxCitiLayout.setVerticalGroup(
-            pnlCbxCitiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+        pnlCbxAreaLayout.setVerticalGroup(
+            pnlCbxAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         pnlCbxTheater.setBackground(new java.awt.Color(32, 32, 32));
@@ -457,7 +236,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         );
         pnlCbxTheaterLayout.setVerticalGroup(
             pnlCbxTheaterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         lblTheater.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -480,7 +259,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         );
         pnlCbxCinemaLayout.setVerticalGroup(
             pnlCbxCinemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         pnlListDate.setBackground(new java.awt.Color(32, 32, 32));
@@ -702,21 +481,21 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         pnlListDateLayout.setHorizontalGroup(
             pnlListDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlListDateLayout.createSequentialGroup()
-                .addContainerGap(127, Short.MAX_VALUE)
+                .addContainerGap(100, Short.MAX_VALUE)
                 .addComponent(pnlDate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addGap(50, 50, 50)
                 .addComponent(pnlDate2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(50, 50, 50)
                 .addComponent(pnlDate3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addGap(50, 50, 50)
                 .addComponent(pnlDate4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addGap(50, 50, 50)
                 .addComponent(pnlDate5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addGap(50, 50, 50)
                 .addComponent(pnlDate6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(pnlDate7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(35, 35, 35))
         );
         pnlListDateLayout.setVerticalGroup(
             pnlListDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -729,46 +508,20 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
                     .addComponent(pnlDate5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlDate4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlDate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
-        pnlSearch.setBackground(new java.awt.Color(32, 32, 32));
-        pnlSearch.setMaximumSize(new java.awt.Dimension(120, 40));
-        pnlSearch.setMinimumSize(new java.awt.Dimension(120, 40));
+        pnlListDateSchedule.setBackground(new java.awt.Color(32, 32, 32));
 
-        lblSearch.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        lblSearch.setForeground(new java.awt.Color(255, 255, 255));
-        lblSearch.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSearch.setText("Tìm kiếm");
-        lblSearch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
-        lblSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblSearch.setMaximumSize(new java.awt.Dimension(120, 40));
-        lblSearch.setMinimumSize(new java.awt.Dimension(120, 40));
-        lblSearch.setPreferredSize(new java.awt.Dimension(120, 40));
-        lblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblSearchMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblSearchMousePressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlSearchLayout = new javax.swing.GroupLayout(pnlSearch);
-        pnlSearch.setLayout(pnlSearchLayout);
-        pnlSearchLayout.setHorizontalGroup(
-            pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1285, Short.MAX_VALUE)
-            .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(lblSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1285, Short.MAX_VALUE))
+        javax.swing.GroupLayout pnlListDateScheduleLayout = new javax.swing.GroupLayout(pnlListDateSchedule);
+        pnlListDateSchedule.setLayout(pnlListDateScheduleLayout);
+        pnlListDateScheduleLayout.setHorizontalGroup(
+            pnlListDateScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        pnlSearchLayout.setVerticalGroup(
-            pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 62, Short.MAX_VALUE)
-            .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(lblSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)))
+        pnlListDateScheduleLayout.setVerticalGroup(
+            pnlListDateScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 348, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlListScheduleMovieLayout = new javax.swing.GroupLayout(pnlListScheduleMovie);
@@ -778,6 +531,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
                         .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblScheduleMovie)
@@ -792,16 +546,11 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
                             .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
                                 .addComponent(lblArea, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36)
-                                .addComponent(pnlCbxCiti, javax.swing.GroupLayout.DEFAULT_SIZE, 1220, Short.MAX_VALUE)))
-                        .addContainerGap(17, Short.MAX_VALUE))
+                                .addComponent(pnlCbxArea, javax.swing.GroupLayout.DEFAULT_SIZE, 1220, Short.MAX_VALUE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlListScheduleMovieLayout.createSequentialGroup()
                         .addComponent(pnlListDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(37, 37, 37))))
-            .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(63, Short.MAX_VALUE)))
+                        .addGap(73, 73, 73))))
         );
         pnlListScheduleMovieLayout.setVerticalGroup(
             pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -810,24 +559,21 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
                 .addComponent(lblScheduleMovie, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCbxCiti, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(pnlCbxArea, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(lblArea, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCbxTheater, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(pnlCbxTheater, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(lblTheater, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCbxCinema, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(pnlCbxCinema, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(lblCinema, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlListDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(350, 350, 350))
-            .addGroup(pnlListScheduleMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlListScheduleMovieLayout.createSequentialGroup()
-                    .addGap(277, 277, 277)
-                    .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(294, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnlMainLayout = new javax.swing.GroupLayout(pnlMain);
@@ -849,27 +595,11 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
-        pnlListDateSchedule.setBackground(new java.awt.Color(32, 32, 32));
-
-        javax.swing.GroupLayout pnlListDateScheduleLayout = new javax.swing.GroupLayout(pnlListDateSchedule);
-        pnlListDateSchedule.setLayout(pnlListDateScheduleLayout);
-        pnlListDateScheduleLayout.setHorizontalGroup(
-            pnlListDateScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        pnlListDateScheduleLayout.setVerticalGroup(
-            pnlListDateScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(69, 69, 69))
+            .addGap(0, 1427, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -878,10 +608,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(871, Short.MAX_VALUE)
-                .addComponent(pnlListDateSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 1182, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 18, Short.MAX_VALUE)
@@ -893,86 +620,42 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
     private void lblDate1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate1MouseClicked
         setDefault();
         setScreen(pnlDate1, lblDate1);
-        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate1.getText()));
     }//GEN-LAST:event_lblDate1MouseClicked
 
     private void lblDate4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate4MouseClicked
         setDefault();
         setScreen(pnlDate4, lblDate4);
-        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate4.getText()));
     }//GEN-LAST:event_lblDate4MouseClicked
 
     private void lblDate5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate5MouseClicked
         setDefault();
         setScreen(pnlDate5, lblDate5);
-        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate5.getText()));
     }//GEN-LAST:event_lblDate5MouseClicked
 
     private void lblDate6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate6MouseClicked
         setDefault();
         setScreen(pnlDate6, lblDate6);
-        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate6.getText()));
     }//GEN-LAST:event_lblDate6MouseClicked
 
     private void lblDate7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate7MouseClicked
         setDefault();
         setScreen(pnlDate7, lblDate7);
-        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate7.getText()));
     }//GEN-LAST:event_lblDate7MouseClicked
 
     private void lblDate2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate2MouseClicked
         setDefault();
         setScreen(pnlDate2, lblDate2);
-        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate2.getText()));
     }//GEN-LAST:event_lblDate2MouseClicked
 
     private void lblDate3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDate3MouseClicked
         setDefault();
         setScreen(pnlDate3, lblDate3);
-        selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate3.getText()));
     }//GEN-LAST:event_lblDate3MouseClicked
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
-        ClientThread.message = "close";
-        System.exit(0);
+            ClientThread.message = "close";
+            System.exit(0);
     }//GEN-LAST:event_lblExitMouseClicked
-
-    private void lblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMouseClicked
-        if(!waiting){
-            String messageShowTime = setShowTime();
-            System.out.println(messageShowTime);
-            if(!messageShowTime.equals("false")){
-                waiting = true;
-                pnlSchedule.removeAll();
-                JPanel FixedPanel = new JPanel(new GridBagLayout());
-                FixedPanel.setPreferredSize(pnlSchedule.getSize());
-                FixedPanel.setBackground(Color.decode("#202020"));
-                FixedPanel.removeAll();
-                JPanel pnl = new GUI.Custom.Loading();
-                pnl.setPreferredSize(new Dimension(200,200));
-                FixedPanel.add(pnl);
-                pnlSchedule.add(FixedPanel);
-                pnlSchedule.revalidate();
-                pnlSchedule.repaint();
-                ClientThread.message = messageShowTime;
-            }else{
-                pnlSchedule.removeAll();
-                JLabel lblScheduel = new JLabel("Vui lòng chọn rạp cần tìm kiếm");
-                lblScheduel.setForeground(Color.decode("#f1f1f1"));
-                lblScheduel.setFont(new Font("SansSerif", Font.PLAIN, 24));
-                lblScheduel.setHorizontalAlignment(JLabel.CENTER);
-                pnlSchedule.add(lblScheduel);
-                pnlSchedule.revalidate();
-                pnlSchedule.repaint();
-            }
-
-        }
-    }//GEN-LAST:event_lblSearchMouseClicked
-
-    private void lblSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMousePressed
-        lblSearch.setForeground(Color.decode("#ffffff"));
-        pnlSearch.setBackground(Color.decode("#202020"));
-    }//GEN-LAST:event_lblSearchMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -988,10 +671,9 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblMoviePlaying;
     private javax.swing.JLabel lblScheduleMovie;
-    private javax.swing.JLabel lblSearch;
     private javax.swing.JLabel lblTheater;
+    private javax.swing.JPanel pnlCbxArea;
     private javax.swing.JPanel pnlCbxCinema;
-    private javax.swing.JPanel pnlCbxCiti;
     private javax.swing.JPanel pnlCbxTheater;
     private javax.swing.JPanel pnlDate1;
     private javax.swing.JPanel pnlDate2;
@@ -1006,6 +688,5 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel pnlListMoviePlaying;
     private javax.swing.JPanel pnlListScheduleMovie;
     private javax.swing.JPanel pnlMain;
-    private javax.swing.JPanel pnlSearch;
     // End of variables declaration//GEN-END:variables
 }
