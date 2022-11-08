@@ -52,7 +52,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         listFilm.forEach(item ->{
             try {
                 JPanel pnl = new JPanel();
-                pnl.add(new GUI.PanelMovie(item));
+                pnl.add(new GUI.PanelMovie(item.getApiFilmId(),item.getGraphicUrl(),item.getTitle(),item.getDuration(),item.getApiRatingFormat()));
                 pnl.setBackground(Color.getColor("#202020"));
                 pnl.setMinimumSize(new Dimension(200,300));
                 pnl.setSize(new Dimension(200,300));
