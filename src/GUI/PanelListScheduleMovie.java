@@ -6,14 +6,18 @@
 package GUI;
 
 import Models.Film;
+import Models.FilmsShowTime;
 import Models.ShowTimeCinema;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 /**
@@ -25,15 +29,24 @@ public class PanelListScheduleMovie extends javax.swing.JPanel {
     /**
      * Creates new form PanelDateSchedule
      */
-    public PanelListScheduleMovie(Film film) throws IOException {
+    public PanelListScheduleMovie(FilmsShowTime filmsShowTime) throws IOException {
         initComponents();
         pnlMovie.setLayout(new BorderLayout());
         JPanel pnl = new JPanel();
-        //pnl.add(new GUI.PanelMovie(film));
+        pnl.add(new GUI.PanelMovie(filmsShowTime.getApiFilmId(),filmsShowTime.getGraphicUrl(),filmsShowTime.getTitle(),filmsShowTime.getDuration(),filmsShowTime.getApiRatingFormat()));
         pnl.setBackground(Color.decode("#202020"));
         pnl.setPreferredSize(new Dimension(200,300));
         pnlMovie.add(pnl);
-        pnlListHourSchedule.setLayout(new GridLayout(0,1,5,5));
+        pnl.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        //pnlListHourSchedule.setLayout(new GridLayout(0,1));
+        pnlListHourSchedule.setLayout(new BoxLayout(pnlListHourSchedule, BoxLayout.Y_AXIS));
+        List<ShowTimeCinema> listShowTime = filmsShowTime.getShowTime();
+        listShowTime.forEach(item->{
+            
+
+            pnlListHourSchedule.add(new PanelListHourSchedule(item));
+        });
+        
     }
 
     /**
@@ -75,7 +88,7 @@ public class PanelListScheduleMovie extends javax.swing.JPanel {
         );
         pnlListHourScheduleLayout.setVerticalGroup(
             pnlListHourScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 63, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -94,8 +107,10 @@ public class PanelListScheduleMovie extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlListHourSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))
+                    .addComponent(pnlMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlListHourSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

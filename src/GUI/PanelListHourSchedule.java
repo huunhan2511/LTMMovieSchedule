@@ -60,11 +60,11 @@ public class PanelListHourSchedule extends javax.swing.JPanel {
         pnlListHourSchedule.setLayout(pnlListHourScheduleLayout);
         pnlListHourScheduleLayout.setHorizontalGroup(
             pnlListHourScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1031, Short.MAX_VALUE)
         );
         pnlListHourScheduleLayout.setVerticalGroup(
             pnlListHourScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 253, Short.MAX_VALUE)
+            .addGap(0, 78, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -87,7 +87,7 @@ public class PanelListHourSchedule extends javax.swing.JPanel {
                 .addComponent(lblCategory)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlListHourSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
