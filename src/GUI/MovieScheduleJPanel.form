@@ -215,7 +215,7 @@
                                       <Component id="pnlCbxCiti" pref="1220" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="17" max="32767" attributes="0"/>
+                              <EmptySpace pref="15" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="pnlListDate" max="32767" attributes="0"/>
