@@ -149,8 +149,9 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String today = dateFormat.format(date);
+        dayWeekFormatYYYYMMDD.add(today);
         Calendar cal = Calendar.getInstance();
-        for (int i=0 ; i<7 ; ++i) {
+        for (int i=1 ; i<7 ; ++i) {
             cal.add(Calendar.DATE, 1);
             Date todate = cal.getTime();
             dayWeekFormatYYYYMMDD.add(dateFormat.format(todate));
