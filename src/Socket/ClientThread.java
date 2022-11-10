@@ -11,6 +11,7 @@ import GUI.MovieScheduleJPanel;
 import GUI.PanelListHourSchedule;
 import GUI.PanelListScheduleMovie;
 import Models.Film;
+import Models.FilmsShowTime;
 import Models.ShowTimeCinema;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -35,12 +36,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import ltmmovieschedule.MovieSchedule;
@@ -174,7 +178,7 @@ public class ClientThread extends Thread{
                             List<ShowTimeCinema> listShowTime = (List<ShowTimeCinema>) objectInputStream.readObject();
                             if(listShowTime.size()>=1){
                                 DetailFilmJPanel.pnlSchedule.removeAll();
-                                DetailFilmJPanel.pnlSchedule.setLayout(new GridLayout(0, 1, 5, 5));
+                                DetailFilmJPanel.pnlSchedule.setLayout(new BoxLayout(DetailFilmJPanel.pnlSchedule, BoxLayout.Y_AXIS));
                                 
                                 listShowTime.forEach(item->{
                                     System.out.println(item);
@@ -183,7 +187,7 @@ public class ClientThread extends Thread{
                                 
                                 DetailFilmJPanel.pnlSchedule.revalidate();
                                 DetailFilmJPanel.pnlSchedule.repaint();
-                            }else{
+                            } else {
                                 DetailFilmJPanel.pnlSchedule.removeAll();
                                 JLabel lblScheduel = new JLabel("Không có lịch chiếu");
                                 lblScheduel.setForeground(Color.decode("#f1f1f1"));
@@ -195,7 +199,38 @@ public class ClientThread extends Thread{
                             }
                             DetailFilmJPanel.waiting = false;
                             message = "";
-                        } else {
+                        } else if (message.contains(";")) {
+                                objectInputStream = new ObjectInputStream(cipherInp);
+                                
+                                List<FilmsShowTime> listFilmsShowTime = (List<FilmsShowTime>) objectInputStream.readObject();
+                                if (listFilmsShowTime.size() >= 1) {
+                                    MovieScheduleJPanel.pnlSchedule.removeAll();
+                                    MovieScheduleJPanel.pnlSchedule.setLayout(new BoxLayout(MovieScheduleJPanel.pnlSchedule, BoxLayout.Y_AXIS));
+                                
+                                    System.out.println("test: " + listFilmsShowTime);
+                                    listFilmsShowTime.forEach(item-> {
+                                        try {
+                                            MovieScheduleJPanel.pnlSchedule.add(new PanelListScheduleMovie(item));
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                    });
+                                    MovieScheduleJPanel.pnlSchedule.revalidate();
+                                    MovieScheduleJPanel.pnlSchedule.repaint();
+                                } else {
+                                    MovieScheduleJPanel.pnlSchedule.removeAll();
+                                    JLabel lblScheduel = new JLabel("Không có lịch chiếu");
+                                    lblScheduel.setForeground(Color.decode("#f1f1f1"));
+                                    lblScheduel.setFont(new Font("SansSerif", Font.PLAIN, 24));
+                                    lblScheduel.setHorizontalAlignment(JLabel.CENTER);
+                                    MovieScheduleJPanel.pnlSchedule.add(lblScheduel);
+                                    MovieScheduleJPanel.pnlSchedule.revalidate();
+                                    MovieScheduleJPanel.pnlSchedule.repaint();
+                                }
+                                MovieScheduleJPanel.waiting = false;
+                                message = "";
+                            }   
+                        else {
                             objectInputStream = new ObjectInputStream(cipherInp);
                             Film detailFilm = (Film) objectInputStream.readObject();
                             try {
@@ -209,6 +244,7 @@ public class ClientThread extends Thread{
                 //End vòng lặp gửi dữ liệu (tìm kiếm) cho server
             }catch(Exception e){
                 System.out.println("Lỗi");
+                e.printStackTrace();
                 System.out.println(e);
             }
         

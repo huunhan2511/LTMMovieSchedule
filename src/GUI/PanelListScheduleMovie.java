@@ -5,14 +5,13 @@
  */
 package GUI;
 
-import Models.Film;
+import Models.FilmsShowTime;
 import Models.ShowTimeCinema;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 
@@ -25,15 +24,27 @@ public class PanelListScheduleMovie extends javax.swing.JPanel {
     /**
      * Creates new form PanelDateSchedule
      */
-    public PanelListScheduleMovie(Film film) throws IOException {
+    public PanelListScheduleMovie(FilmsShowTime filmsShowTime) throws IOException {
         initComponents();
         pnlMovie.setLayout(new BorderLayout());
         JPanel pnl = new JPanel();
-        //pnl.add(new GUI.PanelMovie(film));
+        //String filmId, String graphicUrl, String title,String duration,String ratingFormat
+        pnl.add(new GUI.PanelMovie(
+                filmsShowTime.getApiFilmId(),
+                filmsShowTime.getGraphicUrl(),
+                filmsShowTime.getTitle(),
+                filmsShowTime.getDuration(),
+                filmsShowTime.getApiRatingFormat()));
         pnl.setBackground(Color.decode("#202020"));
         pnl.setPreferredSize(new Dimension(200,300));
         pnlMovie.add(pnl);
+        
         pnlListHourSchedule.setLayout(new GridLayout(0,1,5,5));
+        List<ShowTimeCinema> showTime = filmsShowTime.getShowTime();
+        
+        showTime.forEach(item-> {
+            pnlListHourSchedule.add(new PanelListHourSchedule(item));
+        });
     }
 
     /**
@@ -66,6 +77,7 @@ public class PanelListScheduleMovie extends javax.swing.JPanel {
 
         pnlListHourSchedule.setBackground(new java.awt.Color(32, 32, 32));
         pnlListHourSchedule.setAutoscrolls(true);
+        pnlListHourSchedule.setPreferredSize(new java.awt.Dimension(1133, 100));
 
         javax.swing.GroupLayout pnlListHourScheduleLayout = new javax.swing.GroupLayout(pnlListHourSchedule);
         pnlListHourSchedule.setLayout(pnlListHourScheduleLayout);
@@ -86,7 +98,7 @@ public class PanelListScheduleMovie extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(pnlMovie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(pnlListHourSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlListHourSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -94,8 +106,10 @@ public class PanelListScheduleMovie extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlListHourSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))
+                    .addComponent(pnlMovie, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlListHourSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
