@@ -40,7 +40,7 @@ public class PanelMovie extends javax.swing.JPanel {
         this.ratingFormat = ratingFormat;
         setData();
     }
-    public void setData() throws MalformedURLException, IOException{
+    public void setData() throws NullPointerException, IOException{
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -51,7 +51,7 @@ public class PanelMovie extends javax.swing.JPanel {
                     Image fixImage = image.getImage().getScaledInstance(200, 225, java.awt.Image.SCALE_SMOOTH);
                     image = new ImageIcon(fixImage);
                     lblImage.setIcon(image);
-                } catch (IOException ex) {
+                } catch (NullPointerException | IOException ex) {
                     System.out.println(ex.getMessage());
                 }
             }

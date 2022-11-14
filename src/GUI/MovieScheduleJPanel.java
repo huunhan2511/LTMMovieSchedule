@@ -20,6 +20,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -153,10 +154,19 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             labels[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             panels[i].setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff"),1));
         }
+        for(int i=1 ;i<dayWeek.size();i++){
+            labels[i].setEnabled(false);
+            removeClickListeners(labels[i]);
+        }
         setDateFormatYYYYMMDD();
         selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate1.getText()));
         setScreen(pnlDate1, lblDate1);
     }
+    private void removeClickListeners(JLabel valueLabel) {
+        for (MouseListener ml : valueLabel.getMouseListeners()) {
+          valueLabel.removeMouseListener(ml);
+        }
+      }
     public void setScreen(JPanel pnlItem,JLabel lblItem){
         lblItem.setForeground(Color.decode("#202020"));
         pnlItem.setBackground(Color.decode("#ffffff"));

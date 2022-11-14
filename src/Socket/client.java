@@ -19,8 +19,9 @@ public class client {
         new ClientThread(socket).start();
     }
     public static void main(String[] args) {
-        String ipAddress = JOptionPane.showInputDialog("Nhập địa chỉ ip server");
+//        String ipAddress = JOptionPane.showInputDialog("Nhập địa chỉ ip server");
         client client = new client();
-        client.createClient(ipAddress);
+//        client.createClient(ipAddress);
+        client.createClient("192.168.1.100");
     }
 }

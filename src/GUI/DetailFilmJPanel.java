@@ -26,6 +26,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -254,10 +255,19 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
             labels[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             panels[i].setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff"),1));
         }
+        for(int i=1 ;i<dayWeek.size();i++){
+            labels[i].setEnabled(false);
+            removeClickListeners(labels[i]);
+        }
         setDateFormatYYYYMMDD();
         selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate1.getText()));
         setScreen(pnlDate1, lblDate1);
     }
+    private void removeClickListeners(JLabel valueLabel) {
+        for (MouseListener ml : valueLabel.getMouseListeners()) {
+          valueLabel.removeMouseListener(ml);
+        }
+      }
     
     public DetailFilmJPanel(Film detailFilm) throws IOException, InterruptedException {
         initComponents();
