@@ -154,10 +154,6 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
             labels[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             panels[i].setBorder(BorderFactory.createLineBorder(Color.decode("#ffffff"),1));
         }
-        for(int i=1 ;i<dayWeek.size();i++){
-            labels[i].setEnabled(false);
-            removeClickListeners(labels[i]);
-        }
         setDateFormatYYYYMMDD();
         selectedDate = dayWeekFormatYYYYMMDD.get(dayWeek.indexOf(lblDate1.getText()));
         setScreen(pnlDate1, lblDate1);

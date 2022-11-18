@@ -162,7 +162,7 @@
                       </Group>
                   </Group>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Component id="pnlListDateSchedule" pref="363" max="32767" attributes="0"/>
+                  <Component id="pnlListDateSchedule" pref="364" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
               </Group>
           </Group>
