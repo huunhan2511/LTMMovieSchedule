@@ -189,6 +189,7 @@ public class ClientThread extends Thread{
                                 DetailFilmJPanel.pnlSchedule.repaint();
                             }else{
                                 DetailFilmJPanel.pnlSchedule.removeAll();
+                                DetailFilmJPanel.pnlSchedule.setLayout(new BorderLayout());
                                 JLabel lblScheduel = new JLabel("Không có lịch chiếu");
                                 lblScheduel.setForeground(Color.decode("#f1f1f1"));
                                 lblScheduel.setFont(new Font("SansSerif", Font.PLAIN, 24));
@@ -220,6 +221,7 @@ public class ClientThread extends Thread{
                                 MovieScheduleJPanel.pnlListDateAdd.repaint();
                             }else{
                                 MovieScheduleJPanel.pnlListDateAdd.removeAll();
+                                MovieScheduleJPanel.pnlListDateAdd.setLayout(new BorderLayout());
                                 JLabel lblScheduel = new JLabel("Không có lịch chiếu");
                                 lblScheduel.setForeground(Color.decode("#f1f1f1"));
                                 lblScheduel.setFont(new Font("SansSerif", Font.PLAIN, 24));

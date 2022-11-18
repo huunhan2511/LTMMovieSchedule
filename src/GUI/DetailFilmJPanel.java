@@ -1362,6 +1362,7 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
                 ClientThread.message = messageShowTime;
             }else{
                 pnlSchedule.removeAll();
+                pnlSchedule.setLayout(new BorderLayout());
                 JLabel lblScheduel = new JLabel("Vui lòng chọn rạp cần tìm kiếm");
                 lblScheduel.setForeground(Color.decode("#f1f1f1"));
                 lblScheduel.setFont(new Font("SansSerif", Font.PLAIN, 24));

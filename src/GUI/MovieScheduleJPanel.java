@@ -869,6 +869,7 @@ public class MovieScheduleJPanel extends javax.swing.JPanel {
                 ClientThread.message = messageShowTime;
             }else{
                 pnlListDateSchedule.removeAll();
+                pnlListDateSchedule.setLayout(new BorderLayout());
                 JLabel lblScheduel = new JLabel("Vui lòng chọn rạp cần tìm kiếm");
                 lblScheduel.setForeground(Color.decode("#f1f1f1"));
                 lblScheduel.setFont(new Font("SansSerif", Font.PLAIN, 24));
