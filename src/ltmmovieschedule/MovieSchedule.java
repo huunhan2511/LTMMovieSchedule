@@ -36,16 +36,19 @@ public class MovieSchedule extends javax.swing.JFrame {
     public MovieSchedule() throws IOException {
         
         initComponents();
-        this.setLocationRelativeTo(null);
-        scrollPaneMain.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPaneMain.getViewport().setBackground(new Color(32,32,32));
-        scrollPaneMain.getVerticalScrollBar().setUI(new MyScrollBarUI());
-        scrollPaneMain.getVerticalScrollBar().setPreferredSize(new Dimension(13,0));
-        scrollPaneMain.getVerticalScrollBar().setBackground(Color.LIGHT_GRAY);
-        pnlRoot.setLayout(new BorderLayout());
-        pnlRoot.add(new GUI.MovieScheduleJPanel());
-        controller = new changeScreenController(pnlRoot); 
-        
+        try{
+            this.setLocationRelativeTo(null);
+            scrollPaneMain.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            scrollPaneMain.getViewport().setBackground(new Color(32,32,32));
+            scrollPaneMain.getVerticalScrollBar().setUI(new MyScrollBarUI());
+            scrollPaneMain.getVerticalScrollBar().setPreferredSize(new Dimension(13,0));
+            scrollPaneMain.getVerticalScrollBar().setBackground(Color.LIGHT_GRAY);
+            pnlRoot.setLayout(new BorderLayout());
+            pnlRoot.add(new GUI.MovieScheduleJPanel());
+            controller = new changeScreenController(pnlRoot); 
+        }catch(NullPointerException ex){
+            System.out.println(ex.getMessage());
+        }
     }
     
     /**

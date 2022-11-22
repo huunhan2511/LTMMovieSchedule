@@ -118,11 +118,13 @@ public class ClientThread extends Thread{
         
         
             try{
+                //3154261836510717
                 //Start gửi chuỗi mã hóa AES đã mã hóa bằng RSA cho server
                 RSA rsa = new RSA();
                 publicKeyServer = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(rsa.decode(publicKeyString)));
                 rsa = new RSA(publicKeyServer);
                 String encMessage = rsa.encrypt(keyAES);
+                System.out.println(encMessage);
                 writer = new PrintWriter(socket.getOutputStream());
                 writer.println(encMessage);
                 writer.flush();

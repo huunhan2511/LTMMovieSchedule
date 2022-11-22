@@ -100,9 +100,11 @@ public class DetailFilmJPanel extends javax.swing.JPanel {
                     image = new ImageIcon(fixImage);
                     lblBanner.setIcon(image);
                 } catch (MalformedURLException ex) {
-                    Logger.getLogger(DetailFilmJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex.getMessage());
                 } catch (IOException ex) {
-                    Logger.getLogger(DetailFilmJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex.getMessage());
+                } catch (NullPointerException ex){
+                    System.out.println(ex.getMessage());
                 }
             }
         };

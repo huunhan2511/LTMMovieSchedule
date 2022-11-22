@@ -51,7 +51,11 @@ public class PanelMovie extends javax.swing.JPanel {
                     Image fixImage = image.getImage().getScaledInstance(200, 225, java.awt.Image.SCALE_SMOOTH);
                     image = new ImageIcon(fixImage);
                     lblImage.setIcon(image);
-                } catch (NullPointerException | IOException ex) {
+                } catch (MalformedURLException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (NullPointerException ex){
                     System.out.println(ex.getMessage());
                 }
             }
